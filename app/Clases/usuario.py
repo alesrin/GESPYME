@@ -46,7 +46,7 @@ class Usuario:
                         Usuario.lista_usuarios.append(usuario)
                         print("Usuario agregado correctamente")
         
-
+    #definimos un metodo para mostrar los usuarios
     @classmethod
     def mostrar_usuarios(cls):
         if len(Usuario.lista_usuarios) == 0:
@@ -55,7 +55,70 @@ class Usuario:
             #Creamos un bucle para que el usuario pueda ver todos los usuarios creados
             for usuario in Usuario.lista_usuarios:
                 usuario.mostrar_datos_usuario()
-
+    
+    #definimos un metodo para eliminar un usuario en funcion de su id
+    @classmethod
+    def eliminar_usuario(cls):
+        if len(Usuario.lista_usuarios) == 0:
+            print("No hay ningun usuario registrado")
+        else:
+            print("Estos son los usuarios actualmente")
+            #Creamos un bucle para que el usuario pueda ver todos los usuarios creados
+            Usuario.mostrar_usuarios()
+            id_a_borrar = str(input("Introduce el ID del usuario que desea eliminar: "))
+            #Creamos un bucle para comprobar el id que deseamos eliminar
+            for user in Usuario.lista_usuarios:
+                if user.id_usuario == id_a_borrar.upper():
+                    Usuario.lista_usuarios.remove(user)
+                    print("El usuario " + str(user.nombre_usuario) + " ha sido eliminado correctamente")
+                    break
+                else:
+                    print("No existe un usuario con el ID introducido")
+                    break
+    
+    #Definimos un metodo que permita modificar un usuario en funcion de su id
+    @classmethod
+    def modificar_usuario(cls):
+        #mostramos los managers que existen actualmente
+        if len(Usuario.lista_usuarios) == 0:
+            print("No hay ningun usuario registrado")
+        else:
+            Usuario.mostrar_usuarios()
+            id_a_modificar = str(input("Introduce el id del usuario manager que desea modificar: "))
+            #Creamos un bucle para comprobar el id que deseamos modificar
+            for user in Usuario.lista_usuarios:
+                if user.id_usuario == id_a_modificar.upper():
+                    print("Estos son los datos del usuario seleccionado")
+                    user.mostrar_datos_usuario()
+                    #Creamos un bucle para que el usuario pueda modificar los datos
+                    while True:
+                        print("¿Que dato desea modificar?")
+                        print("-. 1  usuario")
+                        print("-. 2 contraseña")
+                        dato_a_modificar = int(input("Introduce el numero del dato que desea modificar: "))
+                        if dato_a_modificar == 1:
+                            nuevo_nombre = str(input("Introduce el nuevo nombre de usuario: "))
+                            user.nombre_usuario = nuevo_nombre
+                            print("El nombre de usuario ha sido modificado correctamente")
+                            opcion = str(input("Desea modificar algun otro dato? (S/N)"))
+                            if opcion.upper() == "S":
+                                continue
+                            elif opcion.upper() == "N":
+                                break
+                        elif dato_a_modificar == 2:
+                            nueva_contrasena = str(input("Introduce la nueva contraseña: "))
+                            confirmar_contrasena = str(input("Confirma la contraseña: "))
+                            if nueva_contrasena != confirmar_contrasena:
+                                print("Las contraseñas no coinciden")
+                            else:
+                                user.contrasena = nueva_contrasena
+                                print("La contrasena ha sido modificado correctamente")
+                                opcion = str(input("Desea modificar algun otro dato? (S/N)"))
+                                if opcion.upper() == "S":
+                                    continue
+                                elif opcion.upper() == "N":
+                                    break
+                
     #definimos un método para comprobar si el nombre de usuario ya existe en la lista de usuarios
     def comprobar_nombre_usuario(self, nombre_usuario):
         for usuario in Usuario.lista_usuarios:
