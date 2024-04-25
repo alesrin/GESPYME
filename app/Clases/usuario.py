@@ -49,12 +49,12 @@ class Usuario:
 
     @classmethod
     def mostrar_usuarios(cls):
-        if len(Worker_User.lista_workers) == 0:
+        if len(Usuario.lista_usuarios) == 0:
             print("No hay ningun usuario registrado")
         else:
             #Creamos un bucle para que el usuario pueda ver todos los usuarios creados
-            for usuario in Usuario.lista_workers:
-                worker.mostrar_info_reducida_worker()
+            for usuario in Usuario.lista_usuarios:
+                usuario.mostrar_datos_usuario()
 
     #definimos un método para comprobar si el nombre de usuario ya existe en la lista de usuarios
     def comprobar_nombre_usuario(self, nombre_usuario):
