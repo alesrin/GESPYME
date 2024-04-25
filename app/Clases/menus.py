@@ -136,13 +136,33 @@ class Menu:
                 cls.menu_usuario_administrador()
             elif opcion == 4:
                 cls.limpiar_pantalla()
-                print("En proceso :)")
+                cls.menu_inicial()
             elif opcion == 5:
                 cls.limpiar_pantalla()
                 print("Hasta luego")
                 break
         
-
+    #definimos el menu inicial de usuarios
+    @classmethod
+    def menu_usuario(cls):
+        while True:
+            print("Hola, Bienvenido a GESPYME")
+            print("-. 1 Iniciar sesión")
+            print("-. 2 Registrase")
+            print("-. 3 Salir")
+            opcion = int(input("Elije que quieres hacer: "))
+            if opcion == 1:
+                cls.limpiar_pantalla()
+                Usuario.iniciar_sesion()
+            elif opcion == 2:
+                cls.limpiar_pantalla()
+                print("Funcion en proceso")
+            elif opcion == 3:
+                cls.limpiar_pantalla()
+                print("Hasta luego")
+                break
+                
+            
 
     #Definimos una funcion que limpie la pantalla
     @classmethod

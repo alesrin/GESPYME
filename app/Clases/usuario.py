@@ -1,6 +1,7 @@
 from worker_user import Worker_User
 from manager_user import Manager_User
 from administrador_user import Administrador_User
+from menus import Menu
 
 #Definimos la clase Usuario
 class Usuario:
@@ -118,7 +119,29 @@ class Usuario:
                                     continue
                                 elif opcion.upper() == "N":
                                     break
-                
+    
+    #Definimos un metodo para que el usuario inicie sesión
+    @classmethod
+    def iniciar_sesion(cls):
+        usuario_inicio_sesion = str(input("Introduce el nombre de usuario: "))
+        #comprobamos que el usuario existe en la lista de usuarios
+        for usuario in Usuario.lista_usuarios:
+            if usuario.nombre_usuario == usuario_inicio_sesion:
+                contrasena_inicio_sesion = str(input("Introduce la contraseña: "))
+                print("Sesión iniciada correctamente")
+                if usuario.contrasena == contrasena_inicio_sesion:
+                    if usuario.tipo_usuario == "administrador":
+                        Menu.menu_usuario_administrador()
+                    elif usuario.tipo_usuario == "worker":
+                        Menu.menu_usuario_worker()
+                    elif usuario.tipo_usuario == "manager":
+                        Menu.menu_usuario_manager()
+
+                else:
+                    print("La contraseña es incorrecta")
+        else:
+            print("El usuario no existe")
+    
     #definimos un método para comprobar si el nombre de usuario ya existe en la lista de usuarios
     def comprobar_nombre_usuario(self, nombre_usuario):
         for usuario in Usuario.lista_usuarios:
