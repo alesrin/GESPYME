@@ -1,4 +1,3 @@
-import
 from worker_user import Worker_User
 from manager_user import Manager_User
 from administrador_user import Administrador_User
@@ -32,8 +31,8 @@ class Usuario:
             if self.comprobar_nombre_usuario(nombre) == False:
                 print("El nombre de usuario ya existe")
             else: 
-                contrasena = pwd(input("Introduce la contraseña del usuario: "))
-                confirmar_contrasena = pwd(input("Confirma la contraseña: "))
+                contrasena = str(input("Introduce la contraseña del usuario: "))
+                confirmar_contrasena = str(input("Confirma la contraseña: "))
                 if contrasena != confirmar_contrasena:
                     print("Las contraseñas no coinciden")
                 else:
@@ -48,7 +47,14 @@ class Usuario:
                         print("Usuario agregado correctamente")
         
 
-
+    @classmethod
+    def mostrar_usuarios(cls):
+        if len(Worker_User.lista_workers) == 0:
+            print("No hay ningun usuario registrado")
+        else:
+            #Creamos un bucle para que el usuario pueda ver todos los usuarios creados
+            for usuario in Usuario.lista_workers:
+                worker.mostrar_info_reducida_worker()
 
     #definimos un método para comprobar si el nombre de usuario ya existe en la lista de usuarios
     def comprobar_nombre_usuario(self, nombre_usuario):

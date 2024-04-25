@@ -133,7 +133,7 @@ class Menu:
                 cls.menu_usuario_manager()
             elif opcion == 3:
                 cls.limpiar_pantalla()
-                cls.menu_usuario_admin()
+                cls.menu_usuario_administrador()
             elif opcion == 4:
                 cls.limpiar_pantalla()
                 print("En proceso :)")
