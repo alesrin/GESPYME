@@ -115,6 +115,33 @@ class Menu:
                 Menu.limpiar_pantalla()
                 print("Hasta luego")
                 break
+    @classmethod
+    def menu_pruebas(cls):
+        while True:
+            print("Hola MAJO, QUENQUIERES PROBAR")
+            print("-. 1 Menu usuarios workers")
+            print("-. 2 menu usuarios manager")
+            print("-. 3 Menu usuarios administradores")
+            print("-. 4 Menu principal")
+            print("-. 5 Salir")
+            opcion = int("Introduce la opción que quieres probar guapo ♥: ")
+            if opcion == 1:
+                cls.limpiar_pantalla()
+                cls.menu_usuario_worker()
+            elif opcion == 2:
+                cls.limpiar_pantalla()
+                cls.menu_usuario_manager()
+            elif opcion == 3:
+                cls.limpiar_pantalla()
+                cls.menu_usuario_admin()
+            elif opcion == 4:
+                cls.limpiar_pantalla()
+                print("En proceso :)")
+            elif opcion == 5:
+                cls.limpiar_pantalla()
+                print("Hasta luego")
+                break
+        
 
 
     #Definimos una funcion que limpie la pantalla
