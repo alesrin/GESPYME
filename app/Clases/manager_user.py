@@ -15,10 +15,6 @@ class Manager_User(Usuario):
         self.contador_tareas_manager = contador_tareas_manager
         self.contador_proyectos_manager = contador_proyectos_manager
     
-    
-
-
-
     #Creamos una lista donde se guardarán los managers
     lista_managers = []
 
@@ -32,7 +28,6 @@ class Manager_User(Usuario):
     def mostrar_info_reducida_manager(self):
         print(f"ID: {self.id_manager} \n{self.nombre_manager} {self.apellido_1_manager} {self.apellido_2_manager}")
     
-
     #Definimos un metodo para añadir un nuevo manager
     @classmethod
     def añadir_manager(cls):
