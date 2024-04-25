@@ -28,7 +28,7 @@ class Administrador_User(Usuario):
         if len(Administrador_User.lista_administradores) == 0:
             print("No hay ningun usuario administrador registrado")
         else:
-            #Creamos un bucle para que el usuario pueda ver todos los managers
+            #Creamos un bucle para que el usuario pueda ver todos los administradores
             for administrador in Administrador_User.lista_administradores:
                 administrador.mostrar_info_reducida_administrador()
     
@@ -39,7 +39,7 @@ class Administrador_User(Usuario):
             print("No hay ningun usuario administrador registrado")
         else:
             print("Estos son los administradores actualmente")
-            #Creamos un bucle para que el usuario pueda ver todos los managers
+            #Creamos un bucle para que el usuario pueda ver todos los administradores
             Administrador_User.mostrar_administradores()
             id_a_borrar = str(input("Introduce el ID del administrador que desea eliminar: "))
             #Creamos un bucle para comprobar el id que deseamos eliminar
@@ -55,7 +55,7 @@ class Administrador_User(Usuario):
     #Definimos un metodo para añadir un nuevo administrador
     @classmethod
     def añadir_administrador(cls):
-        #Creamos un bucle para que el usuario pueda añadir tantos managers como quiera
+        #Creamos un bucle para que el usuario pueda añadir tantos administradores como quiera
         while True:
             #Pedimos al usuario que introduzca los datos del manager
             if len(Administrador_User.lista_administradores) == 0:
@@ -71,7 +71,7 @@ class Administrador_User(Usuario):
             email = str(input("Introduce el email del administrador: "))
             #Creamos un objeto de la clase Administrador_User
             administrador = Administrador_User(id_administrador, nombre, apellido1, apellido2, telefono, email)
-            #Añadimos el manager a la lista de ADMINISTRADORES
+            #Añadimos el manager a la lista de administradores
             Administrador_User.lista_administradores.append(administrador)
             #Pedimos al usuario si quiere añadir otro administrador
             añadir_administrador = str(input("¿Quieres añadir otro administrador? (S/N): "))

@@ -166,9 +166,9 @@ class Manager_User(Usuario):
                             elif opcion.upper() == "N":
                                 break
                         elif dato_a_modificar == 7:
-                            nuevo_coste_hora = float(input("Introduce el nuevo email: "))
-                            manager.email_manager = nuevo_email
-                            print("El email ha sido modificado correctamente")
+                            nuevo_coste_hora = float(input("¿Cuanto cobrará ahora el manager?: "))
+                            manager.coste_hora_manager = nuevo_coste_hora
+                            print("El coste hora ha sido modificado correctamente")
                             opcion = str(input("Desea modificar algun otro dato? (S/N)"))
                             if opcion.upper() == "S":
                                 continue

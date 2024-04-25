@@ -1,6 +1,7 @@
 from usuario import Usuario
 from manager_user import Manager_User
 from administrador_user import Administrador_User
+from worker_user import Worker_User
 import os
 class Menu:
 
@@ -87,6 +88,33 @@ class Menu:
                 print("Hasta luego")
                 break
 
+    #creamos el menu de operaciones CRUD de usuario administrador
+    @classmethod
+    def menu_usuario_worker(cls):
+        while True:
+            print("Bienvenido al menú de gestión de usuarios Workers")
+            print("-. 1 Añadir usuario worker")
+            print("-. 2 Eliminar usuario worker")
+            print("-. 3 Modificar usuario worker")
+            print("-. 4 Mostrar usuarios worker")
+            print("-. 5 Salir")
+            opcion = int(input("Elige una opcion: "))
+            if opcion == 1:
+                Menu.limpiar_pantalla()
+                Worker_User.añadir_worker
+            elif opcion == 2:
+                Menu.limpiar_pantalla()
+                Worker_User.borrar_worker()
+            elif opcion == 3:
+                Menu.limpiar_pantalla()
+                Worker_User.modificar_usuario_worker()
+            elif opcion == 4:
+                Menu.limpiar_pantalla()
+                Worker_User.mostrar_workers()
+            elif opcion == 5:
+                Menu.limpiar_pantalla()
+                print("Hasta luego")
+                break
 
 
     #Definimos una funcion que limpie la pantalla
