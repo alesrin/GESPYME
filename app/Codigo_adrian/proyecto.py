@@ -4,7 +4,7 @@ class Proyecto:
     def __init__(self, nombre, *lista_tareas): #Crear proyectos: Decir el nombre de proyecto y al menos una tarea
         self.nombre = nombre
         self.lista_tareas = list(lista_tareas) 
-        
+        #fdgdshgd prueba
     @classmethod 
     #Este método se asocia con la clase y no con los objetos  
     #Defino una función para que el usuario puedad agregar un nuevo trabajador
