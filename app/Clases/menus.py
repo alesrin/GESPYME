@@ -1,4 +1,6 @@
 from usuario import Usuario
+from manager_user import Manager_User
+from administrador_user import Administrador_User
 import os
 class Menu:
 
@@ -7,35 +9,84 @@ class Menu:
     def menu_inicial(cls):
         while True:
             print("¿Que quieres hacer?")
-            print("1.- Crear usuario")
-            print("2.- Iniciar sesion")
-            print("3.- Salir")
-            print("4.- listar usuarios")
-            print("5.- modificar usuario")
-            print("6.- eliminar usuario")
+            print("1.- Iniciar sesion")
+            print("2.- Crear usuario")
+            print("3.- Recuperar contraseña")
+            print("4.- Salir")
             opcion = int(input("Elige una opcion: "))
             if opcion == 1:
                 Menu.limpiar_pantalla()
-                Usuario.agregar_Usuario()
+                Usuario.iniciar_sesion()
             elif opcion == 2:
                 Menu.limpiar_pantalla()
-                Usuario.iniciar_sesion()
+                Usuario.agregar_Usuario()
             elif opcion == 3:
+                Menu.limpiar_pantalla()
+                print("Funcion en desarrollo")
+            elif opcion == 4:
                 Menu.limpiar_pantalla()
                 print("Hasta luego")
                 break
-            elif opcion == 4:
-                Menu.limpiar_pantalla()
-                Usuario.mostrar_usuarios()
-            elif opcion == 5:
-                Menu.limpiar_pantalla()
-                Usuario.modificar_Usuario()
-            elif opcion == 6:
-                Menu.limpiar_pantalla()
-                Usuario.eliminar_Usuario()
             else:
                 print("Opcion incorrecta")
                 print()
+        
+    #creamos el menu de operaciones CRUD de usuario_manager
+    @classmethod
+    def menu_usuario_manager(cls):
+        while True:
+            print("Bienvenido al menú de gestión de usuarios Managers")
+            print("-. 1 Añadir usuario manager")
+            print("-. 2 Eliminar usuario manager")
+            print("-. 3 Modificar usuario manager")
+            print("-. 4 Mostrar usuarios manager")
+            print("-. 5 Salir")
+            opcion = int(input("Elige una opcion: "))
+            if opcion == 1:
+                Menu.limpiar_pantalla()
+                Manager_User.añadir_manager()
+            elif opcion == 2:
+                Menu.limpiar_pantalla()
+                Manager_User.borrar_manager()
+            elif opcion == 3:
+                Menu.limpiar_pantalla()
+                Manager_User.modificar_usuario_manager()
+            elif opcion == 4:
+                Menu.limpiar_pantalla()
+                Manager_User.mostrar_managers()
+            elif opcion == 5:
+                Menu.limpiar_pantalla()
+                print("Hasta luego")
+                break
+        
+    #creamos el menu de operaciones CRUD de usuario administrador
+    @classmethod
+    def menu_usuario_administrador(cls):
+        while True:
+            print("Bienvenido al menú de gestión de usuarios Administradores")
+            print("-. 1 Añadir usuario administrador")
+            print("-. 2 Eliminar usuario administrador")
+            print("-. 3 Modificar usuario administrador")
+            print("-. 4 Mostrar usuarios administrador")
+            print("-. 5 Salir")
+            opcion = int(input("Elige una opcion: "))
+            if opcion == 1:
+                Menu.limpiar_pantalla()
+                Administrador_User.añadir_administrador()
+            elif opcion == 2:
+                Menu.limpiar_pantalla()
+                Administrador_User.borrar_administrador()
+            elif opcion == 3:
+                Menu.limpiar_pantalla()
+                Administrador_User.modificar_usuario_administrador()
+            elif opcion == 4:
+                Menu.limpiar_pantalla()
+                Administrador_User.mostrar_administradores()
+            elif opcion == 5:
+                Menu.limpiar_pantalla()
+                print("Hasta luego")
+                break
+
 
 
     #Definimos una funcion que limpie la pantalla
