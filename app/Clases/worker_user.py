@@ -1,6 +1,5 @@
-from usuario import Usuario
 
-class Worker_User(Usuario):
+class Worker_User:
     #definimos el método constructor
     def __init__(self, id_worker : str, nombre_worker : str, apellido_1_worker : str, apellido_2_worker : str, telefono_worker : int, 
                  email_worker, horas_semanales_worker : float, coste_hora_worker : float, contador_tareas_worker: int, puesto_trabajo_worker: str )  -> None:
@@ -46,6 +45,8 @@ class Worker_User(Usuario):
             telefono = int(input("Introduce el telefono: "))
             email = str(input("Introduce el email del trabajador: "))
             horas_semanales = float(input("¿Cuantas horas semanales va a trabajar este trabajador?: "))
+            if horas_semanales > 40:
+                print("El trabajador no puede trabajar más de 40 horas semanales")
             coste_hora = float(input("¿Cuánto ganará el trabajador a la hora?: "))
             puesto_trabajo = str(input("¿En que puesto trabajará el trabajador?"))
             #Creamos un objeto de la clase Worker_User
@@ -160,6 +161,9 @@ class Worker_User(Usuario):
                                 break
                         elif dato_a_modificar == 6:
                             nuevas_horas_semanales = float(input("Introduce la cantidad de las nuevas horas que trabajará el trabajador a la semana: "))
+                            if nuevas_horas_semanales > 40:
+                                print("Las horas semanales no pueden ser mayores a 40")
+                                continue
                             worker.horas_semanales_worker = nuevas_horas_semanales
                             print("Las horas semanales han sido modificado correctamente")
                             opcion = str(input("Desea modificar algun otro dato? (S/N)"))

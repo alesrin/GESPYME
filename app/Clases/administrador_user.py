@@ -1,6 +1,5 @@
-from usuario import Usuario
 
-class Administrador_User(Usuario):
+class Administrador_User:
     #Definimos un método constructor
     def __init__(self, id_administrador : str, nombre_administrador : str, apellido_1_administrador : str , apellido_2_administrador : str , telefono_administrador : int,  email_administrador : str,):
         self.id_administrador = id_administrador

@@ -1,6 +1,6 @@
-from usuario import Usuario
 
-class Manager_User(Usuario):
+
+class Manager_User:
     #definimos el método constructor
     def __init__(self, id_manager : str, nombre_manager : str, apellido_1_manager : str, apellido_2_manager, telefono_manager : int, 
                  email_manager, horas_semanales_manager : float, coste_hora_manager : float, contador_tareas_manager: int, contador_proyectos_manager: int )  -> None:
@@ -46,6 +46,8 @@ class Manager_User(Usuario):
             telefono = int(input("Introduce el telefono: "))
             email = str(input("Introduce el email del manager: "))
             horas_semanales = float(input("¿Cuantas horas semanales va a trabajar este manager?: "))
+            if horas_semanales > 40:
+                print("El manager no puede trabajar más de 40 horas semanales")
             coste_hora = float(input("¿Cuánto ganará el manager a la hora?: "))
             #Creamos un objeto de la clase Manager_User
             manager = Manager_User(id_manager, nombre, apellido1, apellido2, telefono, email, horas_semanales, coste_hora, 0, 0)
@@ -158,6 +160,9 @@ class Manager_User(Usuario):
                                 break
                         elif dato_a_modificar == 6:
                             nuevas_horas_semanales = float(input("Introduce la cantidad de las nuevas horas que trabajará el manager a la semana: "))
+                            if nuevas_horas_semanales > 40:
+                                print("El manager no puede trabajar más de 40 horas a la semana")
+                                continue
                             manager.horas_semanales_manager = nuevas_horas_semanales
                             print("Las horas semanales han sido modificado correctamente")
                             opcion = str(input("Desea modificar algun otro dato? (S/N)"))

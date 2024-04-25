@@ -124,7 +124,7 @@ class Menu:
             print("-. 3 Menu usuarios administradores")
             print("-. 4 Menu principal")
             print("-. 5 Salir")
-            opcion = int("Introduce la opción que quieres probar guapo ♥: ")
+            opcion = int(input("Introduce la opción que quieres probar guapo ♥: "))
             if opcion == 1:
                 cls.limpiar_pantalla()
                 cls.menu_usuario_worker()
@@ -168,3 +168,9 @@ class Menu:
     @classmethod
     def limpiar_pantalla(cls):
         os.system('cls' if os.name=='nt' else 'clear')
+        
+#definimos el main
+if __name__ == "__main__":
+    #creamos un objeto de la clase menu
+    Menu.limpiar_pantalla()
+    Menu.menu_inicial()

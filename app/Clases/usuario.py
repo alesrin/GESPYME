@@ -1,9 +1,4 @@
-from worker_user import Worker_User
-from manager_user import Manager_User
-from administrador_user import Administrador_User
 from menus import Menu
-
-#Definimos la clase Usuario
 class Usuario:
     #Definimos el metodo constructor
     def __init__(self, id_usuario : int, nombre_usuario : str, contrasena_usuario : str, tipo_usuario: str ):
@@ -128,8 +123,8 @@ class Usuario:
         for usuario in Usuario.lista_usuarios:
             if usuario.nombre_usuario == usuario_inicio_sesion:
                 contrasena_inicio_sesion = str(input("Introduce la contraseña: "))
-                print("Sesión iniciada correctamente")
-                if usuario.contrasena == contrasena_inicio_sesion:
+                if usuario.contrasena_usuario == contrasena_inicio_sesion:
+                    print("Sesión iniciada correctamente")
                     if usuario.tipo_usuario == "administrador":
                         Menu.menu_usuario_administrador()
                     elif usuario.tipo_usuario == "worker":
@@ -142,9 +137,37 @@ class Usuario:
         else:
             print("El usuario no existe")
     
+    #definimos un método para poder registrar un usuario administrador
+    @classmethod
+    def registrar_usuario(cls):
+        if len(Usuario.lista_usuarios) == 0:
+            numero_usuario = 1
+            id_usuario = "U" + numero_usuario
+        else: 
+            numero_usuario = len(Usuario.lista_usuarios) +1
+            id_usuario = "U" + numero_usuario
+        usuario_a_registrar = str(input("¿Que tipo de usuario quieres registrar?: "))
+        if usuario_a_registrar.lower() == "administrador":
+            nombre_usuario = str(input("Introduce el nombre de usuario: "))
+            #comprobamos que el nombre de usuario no existe en la lista de usuarios
+            if cls.comprobar_nombre_usuario(nombre_usuario):
+                contrasena_a_registrar = str(input("Introduce la contraseña: "))
+                comprobar_contrasena = str(input("Confirma la contraseña: "))
+                if contrasena_a_registrar == comprobar_contrasena:
+                    usuario_administrador = Usuario(id_usuario, nombre_usuario, contrasena_a_registrar, "administrador")
+        elif usuario_a_registrar.lower() == "manager":
+            print("Se le solicitará a un administrador que le cree un usuario, por favor tenga paciencia")
+        elif usuario_a_registrar.lower() == "worker":
+            print("Se le solicitará a un manager que le cree un usuario, por favor tenga paciencia")
+            
+            
+    
     #definimos un método para comprobar si el nombre de usuario ya existe en la lista de usuarios
     def comprobar_nombre_usuario(self, nombre_usuario):
         for usuario in Usuario.lista_usuarios:
             if usuario.nombre_usuario == nombre_usuario:
                 return False
                 
+#definimos un objeto de tipo usuario y lo añadimos a la lista
+usuario1 = Usuario("U1", "daniel", "daniel", "administrador")
+Usuario.lista_usuarios.append(usuario1)
