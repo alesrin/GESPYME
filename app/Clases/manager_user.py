@@ -1,4 +1,4 @@
-
+from usuario import Usuario
 
 class Manager_User:
     #definimos el método constructor
@@ -179,8 +179,7 @@ class Manager_User:
                                 continue
                             elif opcion.upper() == "N":
                                 break
-
-
+                                
 
 #definimos un manager nuevo y lo añadimos a la lista
 manager1 =  Manager_User("UM1","Daniel", "Garcia", "Muñoz", 123456789, "daniel@gmail.com",40 ,8.50,0,0)

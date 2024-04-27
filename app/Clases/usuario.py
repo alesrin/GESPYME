@@ -1,11 +1,14 @@
 from menus import Menu
+from worker_user import Worker_User
+from manager_user import Manager_User
 class Usuario:
     #Definimos el metodo constructor
-    def __init__(self, id_usuario : int, nombre_usuario : str, contrasena_usuario : str, tipo_usuario: str ):
+    def __init__(self, id_usuario : int, nombre_usuario : str, contrasena_usuario : str, tipo_usuario: str, id_empleado: str ):
         self.id_usuario = id_usuario
         self.nombre_usuario = nombre_usuario
         self.contrasena_usuario = contrasena_usuario
         self.tipo_usuario = tipo_usuario
+        self.id_empleado = id_empleado
         
 
     #Definimos una lista vacia donde se guradarán los datos de los usuarios
@@ -35,12 +38,15 @@ class Usuario:
                     tipo_usuario = str(input("Introduce el tipo de usuario pueden ser administrador | worker | manager: "))
                     if tipo_usuario.lower() != "administrador" and tipo_usuario.lower() != "worker" and tipo_usuario.lower() != "manager":
                         print("Tipo de usuario incorrecto")
-                    else:
+                    elif tipo_usuario.lower() == "administrador":
                         #Creamos un objeto de la clase Usuario con los datos introducidos por el usuario
-                        usuario = Usuario(id_usuario, nombre, contrasena, tipo_usuario)
-                        #Agregamos el objeto a la lista de usuarios
-                        Usuario.lista_usuarios.append(usuario)
-                        print("Usuario agregado correctamente")
+                        id_empleado = id_usuario
+                    else:
+                        id_empleado =""
+                    usuario = Usuario(id_usuario, nombre, contrasena, tipo_usuario,id_empleado)
+                    #Agregamos el objeto a la lista de usuarios
+                    Usuario.lista_usuarios.append(usuario)
+                    print("Usuario agregado correctamente")
         
     #definimos un metodo para mostrar los usuarios
     @classmethod
@@ -154,11 +160,52 @@ class Usuario:
                 contrasena_a_registrar = str(input("Introduce la contraseña: "))
                 comprobar_contrasena = str(input("Confirma la contraseña: "))
                 if contrasena_a_registrar == comprobar_contrasena:
-                    usuario_administrador = Usuario(id_usuario, nombre_usuario, contrasena_a_registrar, "administrador")
+                    id_empleado = id_usuario
+                    usuario_administrador = Usuario(id_usuario, nombre_usuario, contrasena_a_registrar, "administrador", id_empleado)
+                    Usuario.lista_usuarios.append(usuario_administrador)
+                    print("Usuario registrado corectamente")
         elif usuario_a_registrar.lower() == "manager":
             print("Se le solicitará a un administrador que le cree un usuario, por favor tenga paciencia")
         elif usuario_a_registrar.lower() == "worker":
             print("Se le solicitará a un manager que le cree un usuario, por favor tenga paciencia")
+    
+    #definimos una funcion para asigar un worker user a un usuario
+    @classmethod
+    def asignar_worker_usuario(cls):
+        print("Estos son los usuarios que no tienen un empleado asignado")
+        for usuario in Usuario.lista_usuarios:
+            if usuario.id_empleado == "":
+                usuario.mostrar_datos_usuarios()
+        print("Estos son los trabajadores existentes actualmente")
+        Worker_User.mostrar_workers()
+        id_empleado_seleccionado = str(input("Por favor escribe el ID del trabajador que tendrá asignado a este usuario: "))
+        if Usuario.comprobar_id_empleado(id_empleado_seleccionado == False):
+            print("Ese usuario ya a sido asignado a un trabajador, por favor seleccione otro ID")
+        else: 
+            usuario.id_empleado = id_empleado_seleccionado
+            print("El usuario ha sido asignado correctamente")
+        
+        #definimos una funcion para asigar un worker user a un usuario
+    @classmethod
+    def asignar_manager_usuario(cls):
+        print("Estos son los usuarios que no tienen un empleado asignado")
+        for usuario in Usuario.lista_usuarios:
+            if usuario.id_empleado == "":
+                usuario.mostrar_datos_usuarios()
+        print("Estos son los managers existentes actualmente")
+        Manager_User.mostrar_info_reducida_manager()
+        id_empleado_seleccionado = str(input("Por favor escribe el ID del trabajador que tendrá asignado a este usuario: "))
+        if Usuario.comprobar_id_empleado(id_empleado_seleccionado == False):
+            print("Ese usuario ya a sido asignado a un manager, por favor seleccione otro ID")
+        else: 
+            usuario.id_empleado = id_empleado_seleccionado
+            print("El usuario ha sido asignado correctamente")        
+        
+    #definimos un metodo para saber si el id_empleado ya está en uso
+    def comprobar_id_empleado(self, id_empleado):
+        for usuario in Usuario.lista_usuarios:
+            if usuario.id_empleado == id_empleado:
+                return False
             
             
     
@@ -167,7 +214,8 @@ class Usuario:
         for usuario in Usuario.lista_usuarios:
             if usuario.nombre_usuario == nombre_usuario:
                 return False
+    
                 
 #definimos un objeto de tipo usuario y lo añadimos a la lista
-usuario1 = Usuario("U1", "daniel", "daniel", "administrador")
+usuario1 = Usuario("U1", "daniel", "daniel", "administrador","U1")
 Usuario.lista_usuarios.append(usuario1)
