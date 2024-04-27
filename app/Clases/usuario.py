@@ -1,4 +1,6 @@
 from menus import Menu
+from usuario import Usuario
+from administrador_user import Administrador_User
 from worker_user import Worker_User
 from manager_user import Manager_User
 class Usuario:
@@ -137,7 +139,6 @@ class Usuario:
                         Menu.menu_final_worker
                     elif usuario.tipo_usuario == "manager":
                         Menu.menu_usuario_manager()
-
                 else:
                     print("La contraseña es incorrecta")
         else:
@@ -215,6 +216,22 @@ class Usuario:
             if usuario.nombre_usuario == nombre_usuario:
                 return False
     
+    #definimos un método para que el usuario pueda recuperar su contraseña
+    def recuperar_contraseña(cls):
+        email_usuario = str("Por favor introduce el email para mandarle las instrucciones para cambiar su contraseña: ")
+        for usuario in Usuario.lista_usuarios:
+            if usuario.email_administrador == email_usuario:
+                print("Se ha enviado un email a la dirección indicada con las instrucciones para cambiar su contraseña")
+            else:
+                for worker in Worker_User.lista_workers:
+                    if worker.email_worker == email_usuario:
+                        print("Se ha enviado un email a la dirección indicada con las instrucciones para cambiar su contraseña")
+                    else:
+                        for manager in Manager_User.lista_managers:
+                            if manager.email_manager == email_usuario:
+                                print("Se ha enviado un email a la dirección indicada con las instrucciones para cambiar su contraseña")
+                            else:
+                                print("No existe ningun usuario con ese email, por favor pruebe otra cuenta")
                 
 #definimos un objeto de tipo usuario y lo añadimos a la lista
 usuario1 = Usuario("U1", "daniel", "daniel", "administrador","U1")

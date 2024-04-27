@@ -40,6 +40,7 @@ class Menu:
             print("Hola, Bienvenido a GESPYME")
             print("-. 1 Iniciar sesión")
             print("-. 2 Registrase")
+            print("-. 3 recuperar contraseña")
             print("-. 3 Salir")
             opcion = int(input("Elije que quieres hacer: "))
             if opcion == 1:
@@ -49,6 +50,9 @@ class Menu:
                 cls.limpiar_pantalla()
                 Usuario.registrar_usuario()
             elif opcion == 3:
+                cls.limpiar_pantalla()
+                Usuario.recuperar_contraseña()
+            elif opcion == 4:
                 cls.limpiar_pantalla()
                 print("Hasta luego")
                 break
