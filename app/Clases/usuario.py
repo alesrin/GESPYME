@@ -132,9 +132,9 @@ class Usuario:
                 if usuario.contrasena_usuario == contrasena_inicio_sesion:
                     print("Sesión iniciada correctamente")
                     if usuario.tipo_usuario == "administrador":
-                        Menu.menu_usuario_administrador()
+                        Menu.menu_final_administrador
                     elif usuario.tipo_usuario == "worker":
-                        Menu.menu_usuario_worker()
+                        Menu.menu_final_worker
                     elif usuario.tipo_usuario == "manager":
                         Menu.menu_usuario_manager()
 
@@ -185,7 +185,7 @@ class Usuario:
             usuario.id_empleado = id_empleado_seleccionado
             print("El usuario ha sido asignado correctamente")
         
-        #definimos una funcion para asigar un worker user a un usuario
+    #definimos una funcion para asigar un worker user a un usuario
     @classmethod
     def asignar_manager_usuario(cls):
         print("Estos son los usuarios que no tienen un empleado asignado")
@@ -194,7 +194,7 @@ class Usuario:
                 usuario.mostrar_datos_usuarios()
         print("Estos son los managers existentes actualmente")
         Manager_User.mostrar_info_reducida_manager()
-        id_empleado_seleccionado = str(input("Por favor escribe el ID del trabajador que tendrá asignado a este usuario: "))
+        id_empleado_seleccionado = str(input("Por favor escribe el ID del manager que tendrá asignado a este usuario: "))
         if Usuario.comprobar_id_empleado(id_empleado_seleccionado == False):
             print("Ese usuario ya a sido asignado a un manager, por favor seleccione otro ID")
         else: 
