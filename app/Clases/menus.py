@@ -156,7 +156,7 @@ class Menu:
                 Usuario.iniciar_sesion()
             elif opcion == 2:
                 cls.limpiar_pantalla()
-                print("Funcion en proceso")
+                Usuario.registrar_usuario()
             elif opcion == 3:
                 cls.limpiar_pantalla()
                 print("Hasta luego")
@@ -174,3 +174,5 @@ if __name__ == "__main__":
     #creamos un objeto de la clase menu
     Menu.limpiar_pantalla()
     Menu.menu_inicial()
+    
+    
