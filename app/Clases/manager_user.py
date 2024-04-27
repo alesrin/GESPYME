@@ -1,5 +1,3 @@
-from usuario import Usuario
-
 class Manager_User:
     #definimos el método constructor
     def __init__(self, id_manager : str, nombre_manager : str, apellido_1_manager : str, apellido_2_manager, telefono_manager : int, 
