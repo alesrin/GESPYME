@@ -132,7 +132,10 @@ def hacer_lista_de_trabajadores_asignados_a_la_tarea(trabajadores_contratados):
        else:
            print("No ha introducido ninguno de los inputs validos, por favor, inténtelo otra vez.")
 
-   print(f"\nLos trabajadores que ha asignado a esta tarea son: \n{lista_trabajadores}")
+   print(f"\nLos trabajadores que ha asignado a esta tarea son: \n{lista_trabajadores}\n")
+   return lista_trabajadores 
+   # con esta última linea le estoy diciendo a programa que si pongo variable_cualquiera = hacer_lista_de_trabajadores_asignados_a_la_tarea(trabajadores_contratados)
+   # me entienda que variable_cualquiera = lista_trabajadores (específicamente, la lista_trabajadores  del final del programa)
 
 #EJECUTA EL CÓDIGO COMENTADO EN ESTAS 2 LINEAS PARA COMPROBAR QUE FUNCIONA TODO EL CÓDIGO EN ESTE ARCHIVO
 """ #He necesitado crear esta variable nueva, trabajadores_contratados. Es necesario saber que trabajadores tenemos contratados antes de decidir a donde los asignamos.
