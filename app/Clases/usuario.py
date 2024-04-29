@@ -143,33 +143,8 @@ class Usuario:
                     print("La contraseña es incorrecta")
         else:
             print("El usuario no existe")
-    
-    #definimos un método para poder registrar un usuario administrador
-    @classmethod
-    def registrar_usuario(cls):
-        if len(Usuario.lista_usuarios) == 0:
-            numero_usuario = 1
-            id_usuario = "U" + numero_usuario
-        else: 
-            numero_usuario = len(Usuario.lista_usuarios) +1
-            id_usuario = "U" + numero_usuario
-        usuario_a_registrar = str(input("¿Que tipo de usuario quieres registrar?: "))
-        if usuario_a_registrar.lower() == "administrador":
-            nombre_usuario = str(input("Introduce el nombre de usuario: "))
-            #comprobamos que el nombre de usuario no existe en la lista de usuarios
-            if cls.comprobar_nombre_usuario(nombre_usuario):
-                contrasena_a_registrar = str(input("Introduce la contraseña: "))
-                comprobar_contrasena = str(input("Confirma la contraseña: "))
-                if contrasena_a_registrar == comprobar_contrasena:
-                    id_empleado = id_usuario
-                    usuario_administrador = Usuario(id_usuario, nombre_usuario, contrasena_a_registrar, "administrador", id_empleado)
-                    Usuario.lista_usuarios.append(usuario_administrador)
-                    print("Usuario registrado corectamente")
-        elif usuario_a_registrar.lower() == "manager":
-            print("Se le solicitará a un administrador que le cree un usuario, por favor tenga paciencia")
-        elif usuario_a_registrar.lower() == "worker":
-            print("Se le solicitará a un manager que le cree un usuario, por favor tenga paciencia")
-    
+     
+
     #definimos una funcion para asigar un worker user a un usuario
     @classmethod
     def asignar_worker_usuario(cls):
@@ -231,8 +206,7 @@ class Usuario:
                             if manager.email_manager == email_usuario:
                                 print("Se ha enviado un email a la dirección indicada con las instrucciones para cambiar su contraseña")
                             else:
-                                print("No existe ningun usuario con ese email, por favor pruebe otra cuenta")
-                
+                                print("No existe ningun usuario con ese email, por favor pruebe otra cuenta")   
 #definimos un objeto de tipo usuario y lo añadimos a la lista
 usuario1 = Usuario("U1", "daniel", "daniel", "administrador","U1")
 Usuario.lista_usuarios.append(usuario1)
