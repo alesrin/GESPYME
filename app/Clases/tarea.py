@@ -25,7 +25,8 @@ class Tarea:
     #definimos un metodo para mostrar la información completa de una tarea
     def mostrar_informacion_completa_tarea(self):
         print(f"ID : {self.id_tarea}\n Nombre {self.nombre_tarea}\nTiempo estimado en días: {self.tiempo_estimado}\nFecha inicio: {self.fecha_inicio}\Fecha fin: {self.fecha_fin}")
-        print(f"Fecha límite {self.fecha_limite}\nCoste: {self.coste_tarea}\nEstado: {self.estado_tarea}\nProyecto: {self.id_proyecto}\nTrabajadores: \n{self.trabajadores}")
+        print(f"Fecha límite {self.fecha_limite}\nCoste: {self.coste_tarea}\nEstado: {self.estado_tarea}\nProyecto: {self.id_proyecto}")
+        print(f"\nManager: {self.manager_tarea}\nTrabajadores: \n{self.trabajadores}")
         
     
     #definimos un metodo para añadir una tarea a la lista de tareas
@@ -97,28 +98,42 @@ class Tarea:
                                         continue
                                     else:
                                         break
-    #definimos un metodo para asignar un manager a una tarea
+
+                                    
+    #definimos un metodo para eliminar un trabajador ya sea manager o worker de una tarea
     @classmethod
-    def asignar_manager_a_tarea(cls):
+    def eliminar_trabajador_de_tarea(cls):
         if len(cls.lista_tareas) == 0:
             print("No existen tareas todavia")
         else:
-            id_tarea = str("Introduce el id de la tarea a la que se le quiere añadir un manager")
+            cls.mostrar_tareas()
+            id_tarea = str(input("Introduce el id de la tarea de la que quieres eliminar un trabajador: "))
             for tarea in cls.lista_tareas:
                 if tarea.id_tarea == id_tarea:
-                    if len(Worker_User.lista_workers) == 0:
-                        print("No existen trabajadores todavia")
+                    id_trabajador_a_eliminar = str(input("introduce el id del trabajador que desea eliminar: "))
+                    for trabajador in tarea.trabajadores:
+                        trabajador.id_worker = id_trabajador_a_eliminar
+                        #reducimos el contador de tareas del trabajador en 1
+                        trabajador.contador_tareas_worker -= 1
+                        #eliminamos el trabajador de la lista de trabajadores de la tarea
+                        tarea.trabajadores.remove(trabajador)
+                        print("Trabajador eliminado correctamente")
+                        
+    #definimos un método para modificar el estado de una tarea
+    @classmethod
+    def finalizar_tarea(cls):
+        if len(cls.lista_tareas) == 0:
+            print("No existen tareas todavia")
+        else:
+            cls.mostrar_tareas()
+            id_tarea_seleccionada = str(input("Introduce el ID de la tarea que quiere modificar su estado: "))
+            for tarea in cls.lista_tareas:
+                if tarea.id_tarea == id_tarea_seleccionada:
+                    opcion = str(input("¿Ha finalizado la tarea? (S/N): "))
+                    if opcion.upper() == "S":
+                        tarea.estado = True
+                        print("Tarea modificada correctamente")
                     else:
-                        while True:
-                            print("Estos son los managers existentes actualmente")
-                            Manager_User.lista_managers()
-                            id_manager = str(input("Introduce el id del manager que quieres añadir a la tarea: "))
-                            for manager in Manager_User.lista_managers:
-                                if manager.id_worker == id_manager:
-                                    tarea.trabajadores.append(manager)
-                                    #aumentamos el contador de tareas del manager en 1
-                                    manager.contador_tareas_manager += 1
-                                    print("Manager añadido correctamente")
-    
+                        tarea.estado = False
 
                      
