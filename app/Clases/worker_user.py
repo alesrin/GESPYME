@@ -2,7 +2,8 @@
 class Worker_User:
     #definimos el método constructor
     def __init__(self, id_worker : str, nombre_worker : str, apellido_1_worker : str, apellido_2_worker : str, telefono_worker : int, 
-                 email_worker, horas_semanales_worker : float, coste_hora_worker : float, contador_tareas_worker: int, puesto_trabajo_worker: str )  -> None:
+                 email_worker, horas_semanales_worker : float, coste_hora_worker : float, contador_tareas_worker: int, puesto_trabajo_worker: str,
+                 contador_proyectos_worker : int)  -> None:
         self.id_worker = id_worker
         self.nombre_worker = nombre_worker
         self.apellido_1_worker = apellido_1_worker
@@ -13,6 +14,7 @@ class Worker_User:
         self.coste_hora_worker = coste_hora_worker
         self.contador_tareas_worker = contador_tareas_worker
         self.puesto_trabajo_worker = puesto_trabajo_worker
+        self.contador_proyectos_worker = contador_proyectos_worker
 
     #Creamos una lista donde se guardarán los workers
     lista_workers = []
@@ -21,7 +23,7 @@ class Worker_User:
     def mostrar_info_ampliada_workers(self):
         print(f"ID: {self.id_worker} \nNombre: {self.nombre_worker} \nPrimer apellido : {self.apellido_1_worker} \nSegundo apellido: {self.apellido_2_worker}") 
         print(f"Telf: {self.telefono_worker} \nEmail: {self.email_worker} \nHoras semanales: {self.horas_semanales_worker} \nCoster hora: {self.coste_hora_worker}") 
-        print(f"Tareas asignadas: {self.contador_tareas_worker} \nPuesto trabajo:  {self.puesto_trabajo_worker}")
+        print(f"Tareas asignadas: {self.contador_tareas_worker} \nPuesto trabajo:  {self.puesto_trabajo_worker}\nNº Proyectos: {self.contador_proyectos_worker}")
     
         #definimos un metodo para mostrar la informacción de los managers
     def mostrar_info_reducida_worker(self):
@@ -50,7 +52,7 @@ class Worker_User:
             coste_hora = float(input("¿Cuánto ganará el trabajador a la hora?: "))
             puesto_trabajo = str(input("¿En que puesto trabajará el trabajador?"))
             #Creamos un objeto de la clase Worker_User
-            worker = Worker_User(id_worker, nombre, apellido1, apellido2, telefono, email, horas_semanales, coste_hora, 0, 0, puesto_trabajo)
+            worker = Worker_User(id_worker, nombre, apellido1, apellido2, telefono, email, horas_semanales, coste_hora, 0, 0, puesto_trabajo,0)
             #Añadimos el worker a la lista de workers
             Worker_User.lista_workers.append(worker)
             #Pedimos al usuario si quiere añadir otro worker
@@ -192,5 +194,5 @@ class Worker_User:
 
 
 #definimos un manager nuevo y lo añadimos a la lista
-worker1 =  Worker_User("UW1","Daniel", "Garcia", "Muñoz", 123456789, "daniel@gmail.com",40 ,8.50,0,"Programador")
+worker1 =  Worker_User("UW1","Daniel", "Garcia", "Muñoz", 123456789, "daniel@gmail.com",40 ,8.50,0,"Programador",0)
 Worker_User.lista_workers.append(worker1)

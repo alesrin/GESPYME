@@ -1,7 +1,8 @@
 class Manager_User:
     #definimos el método constructor
     def __init__(self, id_manager : str, nombre_manager : str, apellido_1_manager : str, apellido_2_manager, telefono_manager : int, 
-                 email_manager, horas_semanales_manager : float, coste_hora_manager : float, contador_tareas_manager: int, contador_proyectos_manager: int )  -> None:
+                 email_manager, horas_semanales_manager : float, coste_hora_manager : float, contador_tareas_manager: int, contador_proyectos_manager: int,
+                 puesto_trabajo_manager : str)  -> None:
         self.id_manager = id_manager
         self.nombre_manager = nombre_manager
         self.apellido_1_manager = apellido_1_manager
@@ -12,6 +13,7 @@ class Manager_User:
         self.coste_hora_manager = coste_hora_manager
         self.contador_tareas_manager = contador_tareas_manager
         self.contador_proyectos_manager = contador_proyectos_manager
+        self.puesto_trabajo_manager = puesto_trabajo_manager
     
     #Creamos una lista donde se guardarán los managers
     lista_managers = []
@@ -20,7 +22,7 @@ class Manager_User:
     def mostrar_info_ampliada_manager(self):
         print(f"ID: {self.id_manager} \nNombre: {self.nombre_manager} \nPrimer apellido : {self.apellido_1_manager} \nSegundo apellido: {self.apellido_2_manager}") 
         print(f"Telf: {self.telefono_manager} \nEmail: {self.email_manager} \nHoras semanales: {self.horas_semanales_manager} \nCoster hora: {self.coste_hora_manager}") 
-        print(f"Tareas asignadas: {self.contador_tareas_manager} \nProyectos asignados:  {self.contador_proyectos_manager}")
+        print(f"Tareas asignadas: {self.contador_tareas_manager} \nProyectos asignados:  {self.contador_proyectos_manager}\nPuesto trabajo: {self.puesto_trabajo_manager}")
     
         #definimos un metodo para mostrar la informacción de los managers
     def mostrar_info_reducida_manager(self):
@@ -47,8 +49,9 @@ class Manager_User:
             if horas_semanales > 40:
                 print("El manager no puede trabajar más de 40 horas semanales")
             coste_hora = float(input("¿Cuánto ganará el manager a la hora?: "))
+            puesto_trabajo = float(input("¿Que puesto de trabajo tendrá el manager?: "))
             #Creamos un objeto de la clase Manager_User
-            manager = Manager_User(id_manager, nombre, apellido1, apellido2, telefono, email, horas_semanales, coste_hora, 0, 0)
+            manager = Manager_User(id_manager, nombre, apellido1, apellido2, telefono, email, horas_semanales, coste_hora, 0, 0, puesto_trabajo)
             #Añadimos el manager a la lista de managers
             Manager_User.lista_managers.append(manager)
             #Pedimos al usuario si quiere añadir otro manager
@@ -110,6 +113,7 @@ class Manager_User:
                         print("-. 5 Email")
                         print("-. 6 Horas semanales")
                         print("-. 7 Coste hora")
+                        print("-. 8 Puesto Trabajo")
                         dato_a_modificar = int(input("Introduce el numero del dato que desea modificar: "))
                         if dato_a_modificar == 1:
                             nuevo_nombre = str(input("Introduce el nuevo nombre: "))
@@ -177,8 +181,17 @@ class Manager_User:
                                 continue
                             elif opcion.upper() == "N":
                                 break
+                        elif dato_a_modificar == 8:
+                            nuevo_puesto_trabajo = float(input("¿Introduce el nuevo puesto de trabajo?: "))
+                            manager.puesto_trabajo_manager = nuevo_puesto_trabajo
+                            print("El puesto de trabajo ha sido modificado correctamente")
+                            opcion = str(input("Desea modificar algun otro dato? (S/N)"))
+                            if opcion.upper() == "S":
+                                continue
+                            elif opcion.upper() == "N":
+                                break
                                 
 
 #definimos un manager nuevo y lo añadimos a la lista
-manager1 =  Manager_User("UM1","Daniel", "Garcia", "Muñoz", 123456789, "daniel@gmail.com",40 ,8.50,0,0)
+manager1 =  Manager_User("UM1","Daniel", "Garcia", "Muñoz", 123456789, "daniel@gmail.com",40 ,8.50,0,0, "Manager")
 Manager_User.lista_managers.append(manager1)
