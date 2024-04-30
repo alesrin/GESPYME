@@ -71,6 +71,7 @@ class Tarea:
                 if tareas.id_tarea == id_a_eliminar:
                     cls.lista_tareas.remove(tareas)
                     print("Tarea eliminada correctamente")
+                    
     #definimos un método para asignar un trabajador a la tarea
     @classmethod
     def asignar_trabajador_a_tarea(cls):
@@ -126,14 +127,124 @@ class Tarea:
             print("No existen tareas todavia")
         else:
             cls.mostrar_tareas()
-            id_tarea_seleccionada = str(input("Introduce el ID de la tarea que quiere modificar su estado: "))
+            id_tarea_seleccionada = str(input("Introduce el ID de la tarea que quiere finalizar su estado: "))
             for tarea in cls.lista_tareas:
                 if tarea.id_tarea == id_tarea_seleccionada:
                     opcion = str(input("¿Ha finalizado la tarea? (S/N): "))
                     if opcion.upper() == "S":
                         tarea.estado = True
-                        print("Tarea modificada correctamente")
+                        #actualizamos la fecha fin por la de ahora
+                        tarea.fecha_fin = dt.now()
+                        #al finalizar la tarea calculamos el coste de la tarea
+                        cls.calculo_coste_tarea(id_tarea_seleccionada)
+                        print("Tarea finalizada correctamente")
                     else:
                         tarea.estado = False
 
-                     
+    #definimos un método para calcular el coste de una tarea
+    @classmethod
+    def calculo_coste_tarea(cls, id_tarea):
+        for tarea in cls.lista_tareas:
+            if tarea.id_tarea == id_tarea:
+                #comprobamos que la tarea se haya finalizado
+               if tarea.estado == True:
+                   #calculamos el tiempo real tardado
+                   tiempo_final = dt.strptime((tarea.fecha_fin - tarea.fecha_inicio),'%d')
+                   #calculamos el coste hora de cada uno de los trabajadores asignados a la tarea
+                   for trabajador in tarea.trabajadores:
+                       coste_hora_trabajadores = sum(trabajador.coste_hora) * float(tiempo_final)
+                       #asignamos el valor calculado al coste de la tarea
+                       tarea.coste_tarea = coste_hora_trabajadores
+                       print("El coste de la tarea es: ", tarea.coste_tarea)
+               else:
+                   print("La tarea no se ha finalizado")
+                  
+    #definimos un método para modificar los datos de una tarea
+    @classmethod
+    def modificar_datos_tarea(cls):
+        if len(cls.lista_tareas) == 0:
+            print("Aún no existen tareas")
+        else:
+            cls.mostrar_tareas()
+            id_a_modificar = str(input("Introduce el ID de la tarea a modificar"))
+            for tarea in cls.lista_tareas:
+                if tarea.id_tarea == id_a_modificar:
+                    print("Estos son los datos de la tarea seleccionada")
+                    tarea.mostrar_informacion_completa_tarea()
+                    #creamos un bucle para que el usuario pueda modificar los datos de la tarea
+                    while True:
+                        print("¿Que dato desea modificar?")
+                        print("-. 1 Nombre Tarea")
+                        print("-. 2 Tiempo estimado")
+                        print("-. 3 Fecha inicio")
+                        print("-. 4 Fecha fin")
+                        print("-. 5 Fecha liminite")
+                        print("-. 6 Coste tarea")
+                        print("-. 7 Estado tarea")
+                        dato_a_modificar = int(input("Introduce el numero del dato que desea modificar: "))
+                        if dato_a_modificar == 1:
+                            nuevo_nombre = str(input("Introduce el nuevo nombre de la tarea: "))
+                            tarea.nombre_tarea = nuevo_nombre
+                            print("Nombre modificado correctamente")
+                            opcion = str(input("Desea modificar algun otro dato? (S/N)"))
+                            if opcion.upper() == "S":
+                                continue
+                            elif opcion.upper() == "N":
+                                break
+                        elif dato_a_modificar == 2:
+                            nuevo_tiempo_estimado = int(input("Introduce el nuevo tiempo estimado de la tarea en dias: "))
+                            tarea.tiempo_estimado = nuevo_tiempo_estimado
+                            print("Tiempo estimado modificado correctamente")
+                            opcion = str(input("Desea modificar algun otro dato? (S/N)"))
+                            if opcion.upper() == "S":
+                                continue
+                            elif opcion.upper() == "N":
+                                break
+                        elif dato_a_modificar == 3:
+                            nueva_fecha_inicio = dt.strptime(input("Introduce la nueva fecha de inicio en dd/mm/y:" ),'%d/%m/%y')
+                            tarea.fecha_inicio = nueva_fecha_inicio
+                            print("fecha inicio modificada correctamente")
+                            opcion = str(input("Desea modificar algun otro dato? (S/N)"))
+                            if opcion.upper() == "S":
+                                continue
+                            elif opcion.upper() == "N":
+                                break
+                        elif dato_a_modificar == 4:
+                            nueva_fecha_fin = dt.strptime(input("Introduce la nueva fecha de fin en dd/mm/y:" ),'%d/%m/%y')
+                            tarea.fecha_fin = nueva_fecha_fin
+                            print("fecha fin modificada correctamente")
+                            opcion = str(input("Desea modificar algun otro dato? (S/N)"))
+                            if opcion.upper() == "S":
+                                continue
+                            elif opcion.upper() == "N":
+                                break
+                        elif dato_a_modificar == 5:
+                            nueva_fecha_limite = dt.strptime(input("Introduce la nueva fecha limite: "), '%d/%%m/%y')
+                            tarea.fecha_limite = nueva_fecha_limite
+                            print("fecha limite modificada correctamente")
+                            opcion = str(input("Desea modificar algun otro dato? (S/N)"))
+                            if opcion.upper() == "S":
+                                continue
+                            elif opcion.upper() == "N":
+                                break
+                        elif dato_a_modificar == 6:
+                            nuevo_coste_tarea = float(input("introduce el nuevo coste de la tarea: "))
+                            tarea.coste_tarea = nuevo_coste_tarea
+                            print("Coste tarea modificado correctamente")
+                            opcion = str(input("Desea modificar algun otro dato? (S/N)"))
+                            if opcion.upper() == "S":
+                                continue
+                            elif opcion.upper() == "N":
+                                break
+                        elif dato_a_modificar == 7:
+                            nuevo_estado_tarea = str(input("Introduce el nuevo estado de la tarea: "))
+                            tarea.estado_tarea = nuevo_estado_tarea
+                            print("Estado modificado correctamente")
+                            opcion = str(input("Desea modificar algun otro dato? (S/N)"))
+                            if opcion.upper() == "S":
+                                continue
+                            elif opcion.upper() == "N":
+                                break
+                        else:
+                            print("opcion no valida")
+                        
