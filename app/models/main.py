@@ -1,4 +1,4 @@
-from . import menus
+from menus import Menu
 
 
-menus.Menu.menu_principal()
+Menu.menu_principal()
