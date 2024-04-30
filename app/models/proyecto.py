@@ -125,7 +125,7 @@ class Proyecto:
         if cls.comprobar_nombre_proyecto(nombre_proyecto) == True:
             print("El nombre del proyecto ya existe")
         else:
-             
+             #pendiente de terminar
         
     #definimos un metodo para comprobar si el nombre del proyecto ya existe
     @classmethod
