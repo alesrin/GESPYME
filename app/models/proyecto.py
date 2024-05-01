@@ -1,5 +1,6 @@
 from worker_user import Worker_User
 from manager_user import Manager_User
+from tarea import Tarea
 
 class Proyecto:
     #definimos un metodo constructor
@@ -24,26 +25,6 @@ class Proyecto:
         print(f"ID: {self.id_proyecto}\nNombre: {self.nombre_proyecto}\nManager: {self.manager_proyecto}")
         print(f"\nTrabajadores: {self.empleados}\nTareas: {self.tareas}")
     
-    #definimos un metodo para agregar un empleado a un proyecto
-    @classmethod
-    def agregar_empleado_a_proyecto(cls):
-        if len(Proyecto.lista_proyectos) == 0:
-            print("No existen proyectos")
-        else:
-            cls.lista_proyectos
-            id_proyecto = str(input("Introduce el ID del proyecto que quieres añadir un empleado"))
-            for proyecto in cls.lista_proyectos:
-                if proyecto.id_proyecto == id_proyecto:
-                    print("Lista de trabajadores: ")
-                    Worker_User.lista_workers()
-                    id_worker = input("Ingrese el ID del trabajador que desea añadir: ")
-                    for worker in Worker_User.lista_workers:
-                        if worker.id_worker == id_worker:
-                            proyecto.empleados.append(worker)
-                            #aumentamos el contador de proyectos del trabajador
-                            worker.contador_proyectos_worker += 1
-                            print("Trabajador añadido correctamente")
-    
     #definimos un metodo para ostrar todos los proyectos
     @classmethod
     def mostrar_proyectos(cls):
@@ -52,6 +33,30 @@ class Proyecto:
         else:
             for proyecto in cls.lista_proyectos:
                 proyecto.mostrar_info_basica_proyecto()
+                
+    #definimos un metodo para agregar un empleado a un proyecto
+    @classmethod
+    def agregar_empleado_a_proyecto(cls, id_proyecto):
+        if len(Proyecto.lista_proyectos) == 0:
+            print("No existen proyectos")
+        else:
+            cls.lista_proyectos
+            for proyecto in cls.lista_proyectos:
+                if proyecto.id_proyecto == id_proyecto:
+                    print("Lista de trabajadores: ")
+                    Worker_User.lista_workers()
+                    while True:
+                        id_worker = input("Ingrese el ID del trabajador que desea añadir: ")
+                        for worker in Worker_User.lista_workers:
+                            if worker.id_worker == id_worker:
+                                proyecto.empleados.append(worker)
+                                #aumentamos el contador de proyectos del trabajador
+                                worker.contador_proyectos_worker += 1
+                                print("Trabajador añadido correctamente")
+                                opcion = input("¿Desea añadir otro trabajador? (s/n): ")
+                                if opcion.lower() == "n":
+                                    break
+
 
     #definimos un metodo para eliminar un empleado a un proyecto
     @classmethod
@@ -65,22 +70,25 @@ class Proyecto:
                 if proyecto.id_proyecto == id_proyecto:
                     print("Lista de trabajadores: ")
                     Worker_User.lista_workers()
-                    id_worker = input("Ingrese el ID del trabajador que desea eliminar: ")
-                    for worker in proyecto.empleados:
-                        if worker.id_worker == id_worker:
-                            #disminuimos el contador de proyectos del trabajador
-                            worker.contador_proyectos_worker -= 1
-                            proyecto.empleados.remove(worker)
-                            print("Trabajador añadido correctamente")
-
+                    while True:
+                        id_worker = input("Ingrese el ID del trabajador que desea eliminar: ")
+                        for worker in proyecto.empleados:
+                            if worker.id_worker == id_worker:
+                                #disminuimos el contador de proyectos del trabajador
+                                worker.contador_proyectos_worker -= 1
+                                proyecto.empleados.remove(worker)
+                                print("Trabajador eliminado correctamente")
+                                opcion = input("¿Desea eliminar otro trabajador? (s/n): ")
+                                if opcion == "n":
+                                    break
+                                
     #definimos un metodo para asignar un manager a un proyecto
     @classmethod
-    def asignar_manager_a_proyecto(cls):
+    def asignar_manager_a_proyecto(cls,id_proyecto):
         if len(Proyecto.lista_proyectos) == 0:
             print("No existen proyectos")
         else:
             cls.lista_proyectos
-            id_proyecto = str(input("Introduce el ID del proyecto al que quieres asignar un manager"))
             for proyecto in cls.lista_proyectos:
                 if proyecto.id_proyecto == id_proyecto:
                     print("Lista de managers: ")
@@ -111,21 +119,127 @@ class Proyecto:
                             manager.contador_proyectos_manager += 1
                             proyecto.manager_proyecto = None
                             print("Manager asignado correctamente")                      
+        
+    #definimos un metodo para asignar una tarea a un proyecto
+    @classmethod
+    def asignar_tarea_a_proyecto(cls):
+        if len(cls.lista_proyectos) == 0:
+            print("No hay proyectos")
+        elif Tarea.lista_tareas == 0:
+            print("No hay tareas")
+        else:
+            print("Estos son los proyectos existentes")
+            cls.mostrar_proyectos()
+            id_proyecto = str("Introduce el id del proyecto al que le quieres asignar una tarea")
+            for proyecto in cls.lista_proyectos:
+                if proyecto.id_proyecto == id_proyecto:
+                    while True:
+                        print("Estas son las tareas disponibles que no se han asignado a ningun proyecto")
+                        for tarea in Tarea.lista_tareas:
+                            if tarea.id_proyecto != "":
+                                tarea.mostrar_informacion_basica_tarea()
+                                id_tarea = str("Introduce el id de la tarea que quieres asignar: ")
+                                for tarea in Tarea.lista_tareas:
+                                    if tarea.id_tarea == id_tarea:
+                                        proyecto.tareas.appendd(tarea)
+                                        #asignamos el valor del id proyecto a la tarea que se va a asignar
+                                        tarea.id_proyecto = id_proyecto
+                                        print("Tarea asignada correctamente")
+                                        opcion = str("¿Quieres asignar otra tarea? (s/n): ")
+                                        if opcion.lower() == "n":
+                                            break
+                            else:
+                                print("no existe una tarea con ese id")             
+        
+    #definimos un metodo para desasignar una tarea a un proyecto
+    @classmethod
+    def desasignar_tarea_a_proyecto(cls):
+        if len(cls.lista_proyectos) == 0:
+            print("No hay proyectos")
+        elif Tarea.lista_tareas == 0:
+            print("No hay tareas")
+        else:
+            print("Estos son los proyectos existentes")
+            cls.mostrar_proyectos()
+            id_proyecto = str("Introduce el id del proyecto al que le quieres desasignar una tarea")
+            for proyecto in cls.lista_proyectos:
+                if proyecto.id_proyecto == id_proyecto:
+                    while True:
+                        print("Estas son las tareas de este proyecto")
+                        for tarea in Tarea.lista_tareas:
+                            if tarea.id_proyecto == id_proyecto:
+                                tarea.mostrar_informacion_basica_tarea()
+                                id_tarea = str("Introduce el id de la tarea que quieres desasignar: ")
+                                for tarea in Tarea.lista_tareas:
+                                    if tarea.id_tarea == id_tarea:
+                                        proyecto.tareas.remove(tarea)
+                                        #Quitamos la asignacion del proyecto en la tarea
+                                        tarea.id_proyecto = ""
+                                        print("Tarea desasignada correctamente")
+                                        opcion = str("¿Quieres desasignar otra tarea? (s/n): ")
+                                        if opcion.lower() == "n":
+                                            break
+                            else:
+                                print("no existe una tarea con ese id")    
     
-    #definimos un metodo para crear un nuevo proyecto
+     #definimos un metodo para crear un nuevo proyecto
     @classmethod
     def crear_proyecto(cls):
         if len(cls.lista_proyectos) == 0:
            numero_proyecto = 1
            id_proyecto = "P" + str(numero_proyecto)
         else:
+            #creamos la lista de empleados del proyecto vacia
+            empleados = []
+            #creamos la lista de tareas del proyecto vacia
+            tareas = []
             numero_proyecto = len(cls.lista_proyectos) +1
             id_proyecto = "P" + str(numero_proyecto)
         nombre_proyecto = str(input("Introduce el nombre del proyecto: "))
         if cls.comprobar_nombre_proyecto(nombre_proyecto) == True:
             print("El nombre del proyecto ya existe")
         else:
-             #pendiente de terminar
+            print("Lista de managers: ")
+            Manager_User.lista_managers()
+            id_manager = input("Ingrese el ID del manager que desea añadir: ")
+            for manager in Manager_User.lista_managers:
+                if manager.id_manager == id_manager:
+                    #aumentamos el contador de proyectos del trabajador
+                    manager.contador_proyectos_manager += 1
+                    print("Lista de trabajadores: ")
+                    Worker_User.lista_workers()
+                    while True:
+                        id_worker = input("Ingrese el ID del trabajador que desea añadir: ")
+                        for worker in Worker_User.lista_workers:
+                            if worker.id_worker == id_worker:
+                                empleados.append(worker)
+                                #aumentamos el contador de proyectos del trabajador
+                                worker.contador_proyectos_worker += 1
+                                opcion = input("¿Desea añadir otro trabajador? (s/n): ")
+                                if opcion.lower() == "n":
+                                    break
+                #creamos el objeto proyecto
+            proyecto = Proyecto(id_proyecto, nombre_proyecto, manager,empleados, tareas)
+                                    
+    #definimos un método para eliminar un proyecto en funcion de su ID
+    @classmethod
+    def eliminar_proyecto(cls):
+        if len(cls.lista_proyectos) == 0:
+            print("No hay proyectos")
+        else:
+            id_a_eliminar = str("Introduce el id del proyecto a eliminar: ")
+            for proyecto in cls.lista_proyectos:
+                if proyecto.id_proyecto == id_a_eliminar:
+                    if cls.comprobar_tareas_proyecto(proyecto.id_proyecto) == True:
+                        print("El proyecto tiene tareas, no se puede eliminar")
+                    else:
+                        confirmar_eliminacion = str(input("¿estas seguro de que quiere eliminar el proyecto? (S/N): "))
+                        if confirmar_eliminacion.lower() == "s":
+                            #eliminamos el proyecto de la lista de proyectos
+                            cls.lista_proyectos.remove(proyecto)
+                            print("Proyecto eliminado")
+                        else:
+                            print("El proyecto no se ha eliminado correctamente")
         
     #definimos un metodo para comprobar si el nombre del proyecto ya existe
     @classmethod
@@ -133,3 +247,11 @@ class Proyecto:
         for proyecto in cls.lista_proyectos:
             if proyecto.nombre_proyecto == nombre_proyecto:
                 return True
+            
+    #definimos un metodo para comprobar si el proyecto tiene tareas
+    @classmethod
+    def comprobar_tareas_proyecto(cls,id_proyecto):
+        for proyecto in cls.lista_proyectos:
+            if proyecto.id_proyecto == id_proyecto:
+                if len(proyecto.tareas) == 0:
+                    return True
