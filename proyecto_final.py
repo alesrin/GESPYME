@@ -143,6 +143,8 @@ class Tarea: # Las tareas son objetos que creamos dentro de cada proyecto.
 tarea1 = Tarea() 
 tarea2 = Tarea()
 
+
+
 #Comprobamos si se han creado correctamente imprimiendo sus atributos con el método info_tarea()
 tarea1.info_tarea()
 tarea2.info_tarea()
