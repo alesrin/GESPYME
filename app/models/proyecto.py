@@ -37,35 +37,29 @@ class Proyecto:
     #definimos un metodo para agregar un empleado a un proyecto
     @classmethod
     def agregar_empleado_a_proyecto(cls, id_proyecto):
-        if len(Proyecto.lista_proyectos) == 0:
-            print("No existen proyectos")
-        else:
-            cls.lista_proyectos
-            for proyecto in cls.lista_proyectos:
-                if proyecto.id_proyecto == id_proyecto:
-                    print("Lista de trabajadores: ")
-                    Worker_User.lista_workers()
-                    while True:
-                        id_worker = input("Ingrese el ID del trabajador que desea añadir: ")
-                        for worker in Worker_User.lista_workers:
-                            if worker.id_worker == id_worker:
-                                proyecto.empleados.append(worker)
-                                #aumentamos el contador de proyectos del trabajador
-                                worker.contador_proyectos_worker += 1
-                                print("Trabajador añadido correctamente")
-                                opcion = input("¿Desea añadir otro trabajador? (s/n): ")
-                                if opcion.lower() == "n":
-                                    break
+        for proyecto in cls.lista_proyectos:
+            if proyecto.id_proyecto == id_proyecto:
+                print("Lista de trabajadores: ")
+                Worker_User.lista_workers()
+                while True:
+                    id_worker = input("Ingrese el ID del trabajador que desea añadir: ")
+                    for worker in Worker_User.lista_workers:
+                        if worker.id_worker == id_worker:
+                            proyecto.empleados.append(worker)
+                            #aumentamos el contador de proyectos del trabajador
+                            worker.contador_proyectos_worker += 1
+                            print("Trabajador añadido correctamente")
+                            opcion = input("¿Desea añadir otro trabajador? (s/n): ")
+                            if opcion.lower() == "n":
+                                break
 
 
     #definimos un metodo para eliminar un empleado a un proyecto
     @classmethod
-    def eliminar_empleado_a_proyecto(cls):
+    def eliminar_empleado_a_proyecto(cls, id_proyecto):
         if len(Proyecto.lista_proyectos) == 0:
             print("No existen proyectos")
         else:
-            cls.lista_proyectos
-            id_proyecto = str(input("Introduce el ID del proyecto que quieres eliminar un empleado"))
             for proyecto in cls.lista_proyectos:
                 if proyecto.id_proyecto == id_proyecto:
                     print("Lista de trabajadores: ")
@@ -88,7 +82,6 @@ class Proyecto:
         if len(Proyecto.lista_proyectos) == 0:
             print("No existen proyectos")
         else:
-            cls.lista_proyectos
             for proyecto in cls.lista_proyectos:
                 if proyecto.id_proyecto == id_proyecto:
                     print("Lista de managers: ")
@@ -103,12 +96,10 @@ class Proyecto:
 
     #definimos un metodo para desasignar un manager a un proyecto
     @classmethod
-    def desasignar_manager_a_proyecto(cls):
+    def desasignar_manager_a_proyecto(cls, id_proyecto):
         if len(Proyecto.lista_proyectos) == 0:
             print("No existen proyectos")
         else:
-            cls.lista_proyectos
-            id_proyecto = str(input("Introduce el ID del proyecto al que quieres desasignar un manager"))
             for proyecto in cls.lista_proyectos:
                 if proyecto.id_proyecto == id_proyecto:
                     id_manager = proyecto.manager_proyecto.id_manager
@@ -122,15 +113,10 @@ class Proyecto:
         
     #definimos un metodo para asignar una tarea a un proyecto
     @classmethod
-    def asignar_tarea_a_proyecto(cls):
-        if len(cls.lista_proyectos) == 0:
-            print("No hay proyectos")
-        elif Tarea.lista_tareas == 0:
+    def asignar_tarea_a_proyecto(cls, id_proyecto):
+        if Tarea.lista_tareas == 0:
             print("No hay tareas")
         else:
-            print("Estos son los proyectos existentes")
-            cls.mostrar_proyectos()
-            id_proyecto = str("Introduce el id del proyecto al que le quieres asignar una tarea")
             for proyecto in cls.lista_proyectos:
                 if proyecto.id_proyecto == id_proyecto:
                     while True:
@@ -153,15 +139,10 @@ class Proyecto:
         
     #definimos un metodo para desasignar una tarea a un proyecto
     @classmethod
-    def desasignar_tarea_a_proyecto(cls):
-        if len(cls.lista_proyectos) == 0:
-            print("No hay proyectos")
-        elif Tarea.lista_tareas == 0:
+    def desasignar_tarea_a_proyecto(cls, id_proyecto):
+        if Tarea.lista_tareas == 0:
             print("No hay tareas")
         else:
-            print("Estos son los proyectos existentes")
-            cls.mostrar_proyectos()
-            id_proyecto = str("Introduce el id del proyecto al que le quieres desasignar una tarea")
             for proyecto in cls.lista_proyectos:
                 if proyecto.id_proyecto == id_proyecto:
                     while True:
@@ -240,7 +221,79 @@ class Proyecto:
                             print("Proyecto eliminado")
                         else:
                             print("El proyecto no se ha eliminado correctamente")
-        
+    
+    #definimos un metodo para editar un proyecto
+    @classmethod
+    def editar_proyecto(cls):
+        if len(cls.lista_proyectos) == 0:
+            print("No hay proyectos")
+        else:
+            print("Proyectos actuales")
+            cls.mostrar_proyectos()
+            id_a_modificar = str("Introduce el ID del Proyecto que quieres modificar: ")
+            for proyecto in cls.lista_proyectos:
+                if proyecto.id_proyecto == id_a_modificar:
+                    proyecto.mostrar_info_completa_proyecto()
+                    print("¿Que quieres modificar del proyecto?")
+                    print("-. 1 Nombre")
+                    print("-. 2 Manager")
+                    print("-. 3 Trabajadores")
+                    print("-. 4 Tareas")
+                    opcion = int("Introduce el numero del campo que quieres modificar: ")
+                    if opcion == 1:
+                        nuevo_nombre = str("Introduce el nuevo nombre del proyecto: ")
+                        if proyecto.comprobar_nombre_proyecto(nuevo_nombre) == True:
+                            print("El nombre del proyecto ya existe")
+                        else:
+                            proyecto.nombre_proyecto = nuevo_nombre
+                    elif opcion == 2:
+                        if proyecto.manager == None:
+                            proyecto.desasignar_manager_a_proyecto(id_a_modificar)
+                        else:
+                            proyecto.desasignar_manager_a_proyecto(id_a_modificar)
+                    elif opcion == 3:
+                        if len(proyecto.trabajadores) == 0:
+                            print("No hay trabajadores en este proyecto")
+                            proyecto.agregar_empleado_a_proyecto(id_a_modificar)
+                        else:
+                            proyecto.mostrar_trabajadores_proyecto()
+                            print("-. 1 Agrgar trabajador")
+                            print("-. 2 eliminar trabajador")
+                            opcion_trabajador = int("Introduce la opcion: ")
+                            if opcion_trabajador == 1:
+                                proyecto.agregar_empleado_a_proyecto(id_a_modificar)
+                            elif opcion_trabajador == 2:
+                                proyecto.eliminar_empleado_de_proyecto(id_a_modificar)
+                    elif opcion == 4:
+                        if len(proyecto.tareas) == 0:
+                            print("No hay tareas en este proyecto")
+                            proyecto.asignar_tarea_a_proyecto(id_a_modificar)
+                        else:
+                            proyecto.mostrar_tareas_proyecto()
+                            print("-. 1 Agrgar Tarea")
+                            print("-. 2 eliminar Tarea")
+                            opcion_tarea = int("Introduce la opcion: ")
+                            if opcion_tarea == 1:
+                                proyecto.asignar_tarea_a_proyecto(id_a_modificar)
+                            elif opcion_trabajador == 2:
+                                proyecto.desasignar_tarea_a_proyecto(id_a_modificar)
+      
+      
+      
+    #definimos un metodo para mostrar los trabajadores de un proyecto
+    @classmethod
+    def mostrar_trabajadores_proyecto(cls, id_proyecto):
+        for proyecto in cls.lista_proyectos:
+            if proyecto.id_proyecto == id_proyecto:
+                print(proyecto.trabajadores)
+     
+    #definimos un metodo para mostrar las tareas de un proyecto
+    @classmethod
+    def mostrar_tareas_proyecto(cls, id_proyecto):
+        for proyecto in cls.lista_proyectos:
+            if proyecto.id_proyecto == id_proyecto:
+                print(proyecto.tareas)
+      
     #definimos un metodo para comprobar si el nombre del proyecto ya existe
     @classmethod
     def comprobar_nombre_proyecto(cls, nombre_proyecto):
