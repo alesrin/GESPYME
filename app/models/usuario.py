@@ -184,7 +184,23 @@ class Usuario:
         else: 
             usuario.id_empleado = id_empleado_seleccionado
             print("El usuario ha sido asignado correctamente")        
-        
+    
+    #definimos una funcion para asigar un administrador user a un usuario
+    @classmethod
+    def asignar_admin_usuario(cls):
+        print("Estos son los usuarios que no tienen un administrador asignado")
+        for usuario in Usuario.lista_usuarios:
+            if usuario.id_empleado == "":
+                usuario.mostrar_datos_usuarios()
+        print("Estos son los administradores existentes actualmente")
+        Administrador_User.mostrar_administradores()
+        id_empleado_seleccionado = str(input("Por favor escribe el ID del administrador que tendrá asignado a este usuario: "))
+        if Usuario.comprobar_id_empleado(id_empleado_seleccionado == False):
+            print("Ese usuario ya a sido asignado a un manager, por favor seleccione otro ID")
+        else: 
+            usuario.id_empleado = id_empleado_seleccionado
+            print("El usuario ha sido asignado correctamente")     
+
     #definimos un metodo para saber si el id_empleado ya está en uso
     def comprobar_id_empleado(self, id_empleado):
         for usuario in Usuario.lista_usuarios:
@@ -263,7 +279,7 @@ class Menu:
                 cls.menu_gestion_managers()
             elif opcion == 2:
                 cls.limpiar_pantalla()
-                print("en proceso")
+                cls.menu_gestiones_administrador()
             elif opcion == 3:
                 cls.limpiar_pantalla()
                 Menu.menu_final_manager()
@@ -271,7 +287,6 @@ class Menu:
                 cls.limpiar_pantalla()
                 print("Cerrando sesión")
                 cls.menu_principal()
-                break
     
     #definimos el menú final del usuario manager
     @classmethod
@@ -432,7 +447,36 @@ class Menu:
             print("Volviendo al menu principal")
             cls.menu_final_manager()
         
-        
+    #definimos un menu para las gestiones de un administrador
+    @classmethod
+    def menu_gestiones_administrador(cls):
+        print("Menu gestiones administrador")
+        print("-. 1 Crear administrador")
+        print("-. 2 Eliminar administrador")
+        print("-. 3 Modificar administrador")
+        print("-. 4 Mostrar administradores creados")
+        print("-. 5 Asignar usuario de inicio de sesión a administrador")
+        print("-. 6 Volver al menu principal")
+        opcion = int(input("¿Que quieres hacer?"))
+        if opcion == 1:
+            cls.limpiar_pantalla()
+            Administrador_User.añadir_administrador()
+        elif opcion == 2:
+            cls.limpiar_pantalla()
+            Administrador_User.borrar_administrador()
+        elif opcion == 3:
+            cls.limpiar_pantalla()
+            Administrador_User.modificar_usuario_administrador()
+        elif opcion == 4:
+            cls.limpiar_pantalla()
+            Administrador_User.mostrar_administradores()
+        elif opcion == 5:
+            cls.limpiar_pantalla()
+            Usuario.asignar_admin_usuario()
+        elif opcion == 6:
+            cls.limpiar_pantalla()
+            print("Volviendo al menu principal")
+            cls.menu_final_administrador()
             
       
     #Definimos una funcion que limpie la pantalla

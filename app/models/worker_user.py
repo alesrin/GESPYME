@@ -52,7 +52,7 @@ class Worker_User:
             coste_hora = float(input("¿Cuánto ganará el trabajador a la hora?: "))
             puesto_trabajo = str(input("¿En que puesto trabajará el trabajador?"))
             #Creamos un objeto de la clase Worker_User
-            worker = Worker_User(id_worker, nombre, apellido1, apellido2, telefono, email, horas_semanales, coste_hora, 0, 0, puesto_trabajo,0)
+            worker = Worker_User(id_worker, nombre, apellido1, apellido2, telefono, email, horas_semanales, coste_hora, 0, puesto_trabajo,0)
             #Añadimos el worker a la lista de workers
             Worker_User.lista_workers.append(worker)
             #Pedimos al usuario si quiere añadir otro worker
