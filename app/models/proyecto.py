@@ -181,7 +181,7 @@ class Proyecto:
             print("El nombre del proyecto ya existe")
         else:
             print("Lista de managers: ")
-            Manager_User.lista_managers()
+            Manager_User.mostrar_managers()
             id_manager = input("Ingrese el ID del manager que desea añadir: ")
             for manager in Manager_User.lista_managers:
                 if manager.id_manager == id_manager:

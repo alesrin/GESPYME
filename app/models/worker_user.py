@@ -20,14 +20,16 @@ class Worker_User:
     lista_workers = []
 
     #definimos un metodo para mostrar la informacción de los managers
+    
     def mostrar_info_ampliada_workers(self):
         print(f"ID: {self.id_worker} \nNombre: {self.nombre_worker} \nPrimer apellido : {self.apellido_1_worker} \nSegundo apellido: {self.apellido_2_worker}") 
         print(f"Telf: {self.telefono_worker} \nEmail: {self.email_worker} \nHoras semanales: {self.horas_semanales_worker} \nCoster hora: {self.coste_hora_worker}") 
         print(f"Tareas asignadas: {self.contador_tareas_worker} \nPuesto trabajo:  {self.puesto_trabajo_worker}\nNº Proyectos: {self.contador_proyectos_worker}")
     
-        #definimos un metodo para mostrar la informacción de los managers
-    def mostrar_info_reducida_worker(self):
-        print(f"ID: {self.id_worker} \n{self.nombre_worker} {self.apellido_1_worker} {self.apellido_2_worker}")
+    #definimos un metodo para mostrar la informacción de los managers
+    @classmethod
+    def mostrar_info_reducida_worker(cls):
+        print(f"ID: {cls.id_worker} \n{cls.nombre_worker} {cls.apellido_1_worker} {cls.apellido_2_worker}")
     
     #Definimos un metodo para añadir un nuevo manager
     @classmethod

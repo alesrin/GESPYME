@@ -156,50 +156,50 @@ class Usuario:
     #definimos una funcion para asigar un worker user a un usuario
     @classmethod
     def asignar_worker_usuario(cls):
-        print("Estos son los usuarios que no tienen un empleado asignado")
         for usuario in Usuario.lista_usuarios:
-            if usuario.id_empleado == "":
+            if usuario.id_empleado == "" and usuario.tipo_usuario == "worker":
+                print("Estos son los usuarios de tipo worker que no tienen un worker asignado asignado")
                 usuario.mostrar_datos_usuarios()
-        print("Estos son los trabajadores existentes actualmente")
-        Worker_User.mostrar_workers()
-        id_empleado_seleccionado = str(input("Por favor escribe el ID del trabajador que tendrá asignado a este usuario: "))
-        if Usuario.comprobar_id_empleado(id_empleado_seleccionado == False):
-            print("Ese usuario ya a sido asignado a un trabajador, por favor seleccione otro ID")
-        else: 
-            usuario.id_empleado = id_empleado_seleccionado
-            print("El usuario ha sido asignado correctamente")
+                print("Estos son los workers existentes actualmente")
+                Worker_User.mostrar_workers()
+                id_empleado_seleccionado = str(input("Por favor escribe el ID del administrador que tendrá asignado a este usuario: "))
+                if Usuario.comprobar_id_empleado(id_empleado_seleccionado == False):
+                    print("Ese usuario ya a sido asignado a un worker, por favor seleccione otro ID")
+                else: 
+                    usuario.id_empleado = id_empleado_seleccionado
+                    print("El usuario ha sido asignado correctamente")  
         
     #definimos una funcion para asigar un worker user a un usuario
     @classmethod
     def asignar_manager_usuario(cls):
-        print("Estos son los usuarios que no tienen un empleado asignado")
         for usuario in Usuario.lista_usuarios:
-            if usuario.id_empleado == "":
+            if usuario.id_empleado == "" and usuario.tipo_usuario == "manager":
+                print("Estos son los usuarios de tipo manager que no tienen un administrador asignado asignado")
                 usuario.mostrar_datos_usuarios()
-        print("Estos son los managers existentes actualmente")
-        Manager_User.mostrar_info_reducida_manager()
-        id_empleado_seleccionado = str(input("Por favor escribe el ID del manager que tendrá asignado a este usuario: "))
-        if Usuario.comprobar_id_empleado(id_empleado_seleccionado == False):
-            print("Ese usuario ya a sido asignado a un manager, por favor seleccione otro ID")
-        else: 
-            usuario.id_empleado = id_empleado_seleccionado
-            print("El usuario ha sido asignado correctamente")        
+                print("Estos son los managers existentes actualmente")
+                Manager_User.mostrar_managers()
+                id_empleado_seleccionado = str(input("Por favor escribe el ID del manager que tendrá asignado a este usuario: "))
+                if Usuario.comprobar_id_empleado(id_empleado_seleccionado == False):
+                    print("Ese usuario ya a sido asignado a un manager, por favor seleccione otro ID")
+                else: 
+                    usuario.id_empleado = id_empleado_seleccionado
+                    print("El usuario ha sido asignado correctamente")        
     
     #definimos una funcion para asigar un administrador user a un usuario
     @classmethod
     def asignar_admin_usuario(cls):
-        print("Estos son los usuarios que no tienen un administrador asignado")
         for usuario in Usuario.lista_usuarios:
-            if usuario.id_empleado == "":
+            if usuario.id_empleado == "" and usuario.tipo_usuario == "administrador":
+                print("Estos son los usuarios de tipo administrador que no tienen un administrador asignado asignado")
                 usuario.mostrar_datos_usuarios()
-        print("Estos son los administradores existentes actualmente")
-        Administrador_User.mostrar_administradores()
-        id_empleado_seleccionado = str(input("Por favor escribe el ID del administrador que tendrá asignado a este usuario: "))
-        if Usuario.comprobar_id_empleado(id_empleado_seleccionado == False):
-            print("Ese usuario ya a sido asignado a un manager, por favor seleccione otro ID")
-        else: 
-            usuario.id_empleado = id_empleado_seleccionado
-            print("El usuario ha sido asignado correctamente")     
+                print("Estos son los administradores existentes actualmente")
+                Administrador_User.mostrar_administradores()
+                id_empleado_seleccionado = str(input("Por favor escribe el ID del administrador que tendrá asignado a este usuario: "))
+                if Usuario.comprobar_id_empleado(id_empleado_seleccionado == False):
+                    print("Ese usuario ya a sido asignado a un administrador, por favor seleccione otro ID")
+                else: 
+                    usuario.id_empleado = id_empleado_seleccionado
+                    print("El usuario ha sido asignado correctamente")     
 
     #definimos un metodo para saber si el id_empleado ya está en uso
     def comprobar_id_empleado(self, id_empleado):
@@ -287,6 +287,7 @@ class Menu:
                 cls.limpiar_pantalla()
                 print("Cerrando sesión")
                 cls.menu_principal()
+                break
     
     #definimos el menú final del usuario manager
     @classmethod
@@ -455,8 +456,9 @@ class Menu:
         print("-. 2 Eliminar administrador")
         print("-. 3 Modificar administrador")
         print("-. 4 Mostrar administradores creados")
-        print("-. 5 Asignar usuario de inicio de sesión a administrador")
-        print("-. 6 Volver al menu principal")
+        print("-. 5 Crear un usuario de inicio de sesion")
+        print("-. 6 Asignar usuario de inicio de sesión a administrador")
+        print("-. 7 Volver al menu principal")
         opcion = int(input("¿Que quieres hacer?"))
         if opcion == 1:
             cls.limpiar_pantalla()
@@ -472,8 +474,11 @@ class Menu:
             Administrador_User.mostrar_administradores()
         elif opcion == 5:
             cls.limpiar_pantalla()
-            Usuario.asignar_admin_usuario()
+            Usuario.agregar_usuario()
         elif opcion == 6:
+            cls.limpiar_pantalla()
+            Usuario.asignar_admin_usuario()
+        elif opcion == 7:
             cls.limpiar_pantalla()
             print("Volviendo al menu principal")
             cls.menu_final_administrador()
