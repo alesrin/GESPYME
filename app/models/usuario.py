@@ -30,7 +30,7 @@ class Usuario:
             numero_usuario = len(Usuario.lista_usuarios) +1
             id_usuario = "U" + str(numero_usuario)
             nombre = str(input("Introduce el nombre del usuario: "))
-            if cls.comprobar_nombre_usuario(nombre) == False:
+            if cls.comprobar_nombre_usuario(nombre) == True:
                 print("El nombre de usuario ya existe")
             else: 
                 contrasena = str(input("Introduce la contraseña del usuario: "))
@@ -175,11 +175,11 @@ class Usuario:
         for usuario in Usuario.lista_usuarios:
             if usuario.id_empleado == "" and usuario.tipo_usuario == "manager":
                 print("Estos son los usuarios de tipo manager que no tienen un administrador asignado asignado")
-                usuario.mostrar_datos_usuarios()
+                usuario.mostrar_datos_usuario()
                 print("Estos son los managers existentes actualmente")
                 Manager_User.mostrar_managers()
                 id_empleado_seleccionado = str(input("Por favor escribe el ID del manager que tendrá asignado a este usuario: "))
-                if Usuario.comprobar_id_empleado(id_empleado_seleccionado == False):
+                if Usuario.comprobar_id_empleado(id_empleado_seleccionado):
                     print("Ese usuario ya a sido asignado a un manager, por favor seleccione otro ID")
                 else: 
                     usuario.id_empleado = id_empleado_seleccionado
@@ -202,15 +202,17 @@ class Usuario:
                     print("El usuario ha sido asignado correctamente")     
 
     #definimos un metodo para saber si el id_empleado ya está en uso
-    def comprobar_id_empleado(self, id_empleado):
+    @classmethod
+    def comprobar_id_empleado(cls, id_empleado):
         for usuario in Usuario.lista_usuarios:
             if usuario.id_empleado == id_empleado:
-                return False
+                return True
             
             
     
     #definimos un método para comprobar si el nombre de usuario ya existe en la lista de usuarios
-    def comprobar_nombre_usuario(self, nombre_usuario):
+    @classmethod
+    def comprobar_nombre_usuario(cls, nombre_usuario):
         for usuario in Usuario.lista_usuarios:
             if usuario.nombre_usuario == nombre_usuario:
                 return False
