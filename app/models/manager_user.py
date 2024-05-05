@@ -49,7 +49,7 @@ class Manager_User:
             if horas_semanales > 40:
                 print("El manager no puede trabajar más de 40 horas semanales")
             coste_hora = float(input("¿Cuánto ganará el manager a la hora?: "))
-            puesto_trabajo = float(input("¿Que puesto de trabajo tendrá el manager?: "))
+            puesto_trabajo = str(input("¿Que puesto de trabajo tendrá el manager?: "))
             #Creamos un objeto de la clase Manager_User
             manager = Manager_User(id_manager, nombre, apellido1, apellido2, telefono, email, horas_semanales, coste_hora, 0, 0, puesto_trabajo)
             #Añadimos el manager a la lista de managers
@@ -114,6 +114,7 @@ class Manager_User:
                         print("-. 6 Horas semanales")
                         print("-. 7 Coste hora")
                         print("-. 8 Puesto Trabajo")
+                        print("-. 9 Cancelar")
                         dato_a_modificar = int(input("Introduce el numero del dato que desea modificar: "))
                         if dato_a_modificar == 1:
                             nuevo_nombre = str(input("Introduce el nuevo nombre: "))
@@ -190,7 +191,9 @@ class Manager_User:
                                 continue
                             elif opcion.upper() == "N":
                                 break
-                                
+                        elif dato_a_modificar == 9:
+                            print("Cancelando")
+                            break     
 
 #definimos un manager nuevo y lo añadimos a la lista
 manager1 =  Manager_User("UM1","Daniel", "Garcia", "Muñoz", 123456789, "daniel@gmail.com",40 ,8.50,0,0, "Manager")

@@ -20,11 +20,11 @@ class Tarea:
     lista_tareas = []
     #definimos un metodo para mostrar la información básica de una tarea
     def mostrar_informacion_basica_tarea(self):
-        print(f"ID : {self.id_tarea}\n Nombre {self.nombre_tarea}\nFecha inicio: {self.fecha_inicio}\Fecha fin: {self.fecha_fin}")
+        print(f"ID : {self.id_tarea}\n Nombre {self.nombre_tarea}\nFecha inicio: {self.fecha_inicio}\nFecha fin: {self.fecha_fin}")
     
     #definimos un metodo para mostrar la información completa de una tarea
     def mostrar_informacion_completa_tarea(self):
-        print(f"ID : {self.id_tarea}\n Nombre {self.nombre_tarea}\nTiempo estimado en días: {self.tiempo_estimado}\nFecha inicio: {self.fecha_inicio}\Fecha fin: {self.fecha_fin}")
+        print(f"ID : {self.id_tarea}\n Nombre {self.nombre_tarea}\nTiempo estimado en días: {self.tiempo_estimado}\nFecha inicio: {self.fecha_inicio}\nFecha fin: {self.fecha_fin}")
         print(f"Fecha límite {self.fecha_limite}\nCoste: {self.coste_tarea}\nEstado: {self.estado_tarea}\nProyecto: {self.id_proyecto}")
         print(f"\nManager: {self.manager_tarea}\nTrabajadores: \n{self.trabajadores}")
         
@@ -158,7 +158,21 @@ class Tarea:
                        print("El coste de la tarea es: ", tarea.coste_tarea)
                else:
                    print("La tarea no se ha finalizado")
-                  
+    
+    #definimos un método para mostrar las tareas de un trabajador
+    @classmethod
+    def mostrar_tareas_trabajador(cls, id_trabajador):
+        print("Tus tareas son las siguientes")
+        for trabajador in Worker_User.lista_workers:
+            if trabajador.id_worker == id_trabajador:
+                for tarea in cls.lista_tareas:
+                    if tarea.trabajadores == trabajador.id_worker:
+                        tarea.mostrar_informacion_basica_tarea()
+            else:
+                print("No tienes tareas asignadas")
+
+  
+                
     #definimos un método para modificar los datos de una tarea
     @classmethod
     def modificar_datos_tarea(cls):
@@ -181,6 +195,7 @@ class Tarea:
                         print("-. 5 Fecha liminite")
                         print("-. 6 Coste tarea")
                         print("-. 7 Estado tarea")
+                        print("-. 8 Cancelar")
                         dato_a_modificar = int(input("Introduce el numero del dato que desea modificar: "))
                         if dato_a_modificar == 1:
                             nuevo_nombre = str(input("Introduce el nuevo nombre de la tarea: "))
@@ -245,6 +260,9 @@ class Tarea:
                                 continue
                             elif opcion.upper() == "N":
                                 break
+                        elif dato_a_modificar == 8:
+                            print("Cancelando")
+                            break
                         else:
                             print("opcion no valida")
                         

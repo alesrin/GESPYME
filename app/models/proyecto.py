@@ -239,7 +239,8 @@ class Proyecto:
                     print("-. 2 Manager")
                     print("-. 3 Trabajadores")
                     print("-. 4 Tareas")
-                    opcion = int("Introduce el numero del campo que quieres modificar: ")
+                    print("-. 5 Cancelar")
+                    opcion = int("que quieres modificar (1-5): ")
                     if opcion == 1:
                         nuevo_nombre = str("Introduce el nuevo nombre del proyecto: ")
                         if proyecto.comprobar_nombre_proyecto(nuevo_nombre) == True:
@@ -259,11 +260,15 @@ class Proyecto:
                             proyecto.mostrar_trabajadores_proyecto()
                             print("-. 1 Agrgar trabajador")
                             print("-. 2 eliminar trabajador")
+                            print("-. 3 Cancelar")
                             opcion_trabajador = int("Introduce la opcion: ")
                             if opcion_trabajador == 1:
                                 proyecto.agregar_empleado_a_proyecto(id_a_modificar)
                             elif opcion_trabajador == 2:
                                 proyecto.eliminar_empleado_de_proyecto(id_a_modificar)
+                            elif opcion_trabajador == 3:
+                                print("Cancelando")
+                                break
                     elif opcion == 4:
                         if len(proyecto.tareas) == 0:
                             print("No hay tareas en este proyecto")
@@ -272,11 +277,18 @@ class Proyecto:
                             proyecto.mostrar_tareas_proyecto()
                             print("-. 1 Agrgar Tarea")
                             print("-. 2 eliminar Tarea")
+                            print("-. 3 Cancelar")
                             opcion_tarea = int("Introduce la opcion: ")
                             if opcion_tarea == 1:
                                 proyecto.asignar_tarea_a_proyecto(id_a_modificar)
-                            elif opcion_trabajador == 2:
+                            elif opcion_tarea == 2:
                                 proyecto.desasignar_tarea_a_proyecto(id_a_modificar)
+                            elif opcion_tarea == 3:
+                                print("Cancelando")
+                                break
+                    elif opcion == 5:
+                        print("Cancelando")
+                        break
       
       
       

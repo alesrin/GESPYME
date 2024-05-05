@@ -85,7 +85,6 @@ class Administrador_User:
             print("No hay ningun usuario administrador registrado")
         else:
             Administrador_User.mostrar_administradores()
-            #
             id_a_modificar = str(input("Introduce el id del usuario administrador que desea modificar: "))
             #Creamos un bucle para comprobar el id que deseamos modificar
             for administrador in Administrador_User.lista_administradores:
@@ -100,6 +99,7 @@ class Administrador_User:
                         print("-. 3 Segundo apellido")
                         print("-. 4 Telefono")
                         print("-. 5 Email")
+                        print("-. 6 Cancelar")
                         dato_a_modificar = int(input("Introduce el numero del dato que desea modificar: "))
                         if dato_a_modificar == 1:
                             nuevo_nombre = str(input("Introduce el nuevo nombre: "))
@@ -146,6 +146,9 @@ class Administrador_User:
                                 continue
                             elif opcion.upper() == "N":
                                 break
+                        elif dato_a_modificar == 6:
+                            print("Cancelando")
+                            break
 #definimos un administrador nuevo y lo añadimos a la lista
 administrador1 =  Administrador_User("UA1","Daniel", "Garcia", "Muñoz", 123456789, "daniel@gmail.com")
 Administrador_User.lista_administradores.append(administrador1)

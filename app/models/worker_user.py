@@ -115,6 +115,7 @@ class Worker_User:
                         print("-. 6 Horas semanales")
                         print("-. 7 Coste hora")
                         print("-. 8 Puesto trabajo")
+                        print("-. 9 Cancelar")
                         dato_a_modificar = int(input("Introduce el numero del dato que desea modificar: "))
                         if dato_a_modificar == 1:
                             nuevo_nombre = str(input("Introduce el nuevo nombre: "))
@@ -191,6 +192,9 @@ class Worker_User:
                                 continue
                             elif opcion.upper() == "N":
                                 break
+                        elif dato_a_modificar == 9:
+                            print("Cancelando")
+                            break
 
 
 #definimos un manager nuevo y lo añadimos a la lista
