@@ -26,7 +26,7 @@ class Tarea:
     def mostrar_informacion_completa_tarea(self):
         print(f"ID : {self.id_tarea}\n Nombre {self.nombre_tarea}\nTiempo estimado en días: {self.tiempo_estimado}\nFecha inicio: {self.fecha_inicio}\nFecha fin: {self.fecha_fin}")
         print(f"Fecha límite {self.fecha_limite}\nCoste: {self.coste_tarea}\nEstado: {self.estado_tarea}\nProyecto: {self.id_proyecto}")
-        print(f"\nManager: {self.manager_tarea}\nTrabajadores: \n{self.trabajadores}")
+        print(f"\nTrabajadores: \n{self.trabajadores}")
         
     
     #definimos un metodo para añadir una tarea a la lista de tareas
@@ -79,7 +79,8 @@ class Tarea:
         if len(cls.lista_tareas) == 0:
             print("No existen tareas todavia")
         else:
-            id_tarea = str("Introduce el id de la tarea a la que se le quiere añadir trabajadores")
+            Tarea.mostrar_tareas()
+            id_tarea = str(input("Introduce el id de la tarea a la que se le quiere añadir trabajadores: "))
             for tarea in cls.lista_tareas:
                 if tarea.id_tarea == id_tarea:
                     if len(Worker_User.lista_workers) == 0:
@@ -87,7 +88,7 @@ class Tarea:
                     else:
                         while True:
                             print("Estos son los trabajadores existentes actualmente")
-                            Worker_User.lista_workers()
+                            Worker_User.mostrar_workers()
                             id_trabajador = str(input("Introduce el id del trabajador que quieres añadir a la tarea: "))
                             for trabajador in Worker_User.lista_workers:
                                 if trabajador.id_worker == id_trabajador:
@@ -95,11 +96,12 @@ class Tarea:
                                     #aumentamos el contador de tareas del trabajador en 1
                                     trabajador.contador_tareas_worker += 1
                                     print("Trabajador añadido correctamente")
-                                    opcion = str("¿Quieres añadir otro trabajador? (S/N): ")
+                                    opcion = str(input("¿Quieres añadir otro trabajador? (S/N): "))
                                     if opcion == "S":
                                         continue
                                     else:
                                         break
+                            break
 
                                     
     #definimos un metodo para eliminar un trabajador ya sea manager o worker de una tarea
