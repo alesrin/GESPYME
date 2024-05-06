@@ -174,7 +174,7 @@ class Usuario:
     def asignar_manager_usuario(cls):
         for usuario in Usuario.lista_usuarios:
             if usuario.id_empleado == "" and usuario.tipo_usuario == "manager":
-                print("Estos son los usuarios de tipo manager que no tienen un administrador asignado asignado")
+                print("Estos son los usuarios de tipo manager que no tienen un manager asignado asignado")
                 usuario.mostrar_datos_usuario()
                 print("Estos son los managers existentes actualmente")
                 Manager_User.mostrar_managers()
@@ -369,7 +369,7 @@ class Menu:
         print("-. 2 Eliminar un Manager")
         print("-. 3 Modificar los datos de un manager")
         print("-. 4 Mostrar Managers en el sistema")
-        print("-. 5 Asignar usuario de inicio de seión a un manager")
+        print("-. 5 Asignar usuario de inicio de sesión a un manager")
         print("-. 6 Volver al menu principal")
         opcion = int(input("¿Qué quieres hacer?: "))
         if opcion == 1:
