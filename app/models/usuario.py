@@ -403,7 +403,7 @@ class Menu:
         print("-. 5 Asignar tarea a trabajador")
         print("-. 6 Eliminar trabajador de una tarea")
         print("-. 7 Salir")
-        opcion = int("¿Que quieres hacer?: ")
+        opcion = int(input("¿Que quieres hacer?: "))
         if opcion == 1:
             cls.limpiar_pantalla()
             Tarea.añadir_tarea()

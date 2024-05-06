@@ -49,6 +49,7 @@ class Tarea:
         trabajadores = []
         #creamos una tarea con los datos obtenidos y la añadimos a la lista de tareas
         nueva_tarea = Tarea(id_tarea, nombre_tarea, tiempo_estimado, fecha_inicio, fecha_fin, fecha_limite, coste_tarea,estado_tarea,proyecto,trabajadores)
+        cls.lista_tareas.append(nueva_tarea)
         print("Tarea creada correctamente")
     
     #definimos un método para mostrar todas las tareas
