@@ -41,7 +41,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
-    role = db.Column(db.String(20), nullable=False)  # 'manager' or 'cliente'
+    role = db.Column(db.String(20), nullable=False)# 'manager' or 'worker' or 'administrador'
     
     def __init__(self, username, role):
         self.username = username
