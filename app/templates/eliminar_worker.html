@@ -1,0 +1,22 @@
+<!DOCTYPE html> 
+<html lang="es">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="description" content="GESPYME"/>
+        <title>GESPYME</title>
+    </head>
+    <body>
+       <h1>Eliminar Trabajador</h1>
+        <!--Ponemos un botón para volver a la ventana anterior-->
+        <div>
+            <form action="{{url_for('/manager_empleados')}}" method="post">
+                <input type="submit" value="Cerrar">
+            </form>
+            </div>
+       <div>
+        <form action="{{url_for('/index')}}" method="post">
+            <input type="submit" value="Cerrar Sesión">
+        </form>
+    </div>
+    </body>
+</html>

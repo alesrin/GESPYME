@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todos los Proyectos</title>
+</head>
+<body>
+    <h1>Todos los Proyectos</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <!-- No se como poner esto... Preguntar a Alejandra-->
+    <!--Ponemos un botón para cerrar la sesión del usuario en cualquier momento-->
+    <!--Ponemos un botón para volver a la ventana anterior-->
+    <div>
+        <form action="{{url_for('/manager_proyectos_tareas')}}" method="post">
+            <input type="submit" value="Cerrar">
+        </form>
+        </div>    
+    <div>
+        <form action="{{url_for('/index')}}" method="post">
+            <input type="submit" value="Cerrar Sesión">
+        </form>
+    </div>
+</body>
+</html>

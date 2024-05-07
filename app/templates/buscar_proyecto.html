@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buscar Proyecto</title>
+</head>
+<body>
+    <h1>Buscar Proyecto</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.nombre_proyecto.label }}
+            {{ form.nombre_proyecto(size=20) }}
+            {% for error in form.nombre_proyecto.errors %}
+                <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+    <!--Ponemos un botón para volver a la ventana anterior-->
+    <div>
+        <form action="{{url_for('/manager_proyectos_tareas')}}" method="post">
+            <input type="submit" value="Cerrar">
+        </form>
+    </div>
+    <!--Ponemos un botón para cerrar la sesión del usuario en cualquier momento-->
+    <div>
+        <form action="{{url_for('/index')}}" method="post">
+            <input type="submit" value="Cerrar Sesión">
+        </form>
+    </div>
+</body>
+</html>
