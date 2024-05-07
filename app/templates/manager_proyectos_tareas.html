@@ -1,0 +1,89 @@
+<!DOCTYPE html> 
+<html lang="es">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="description" content="GESPYME"/>
+        <title>GESPYME</title>
+    </head>
+    <body>
+       <h1>Menu Manager Proyectos y Tareas</h1>
+        <!-- Ponemos un botón para crear un proyecto -->
+       <div>
+            <form action="{{url_for('/anadir_proyecto')}}" method="post">
+                <input type="submit" value="Crear Proyecto" />
+            </form>
+       </div>
+        <!-- Ponemos un botón para Ver/ Editar un proyecto -->
+       <div>
+            <form action="{{url_for('/editar_proyecto')}}" method="post">
+                <input type="submit" value="Ver/Editar Proyecto" />
+            </form>
+       </div>
+        <!-- Ponemos un botón para Eliminar un proyecto -->
+        <div>
+            <form action="{{url_for('/eliminar_proyecto')}}" method="post">
+                <input type="submit" value="Eliminar Proyecto" />
+            </form>
+        </div>
+        <!-- Ponemos un botón para listar los proyectos -->
+        <div>
+            <form action="{{url_for('/ver_proyecto')}}" method="post">
+                <input type="submit" value="Lista de Proyectos" />
+            </form>
+        </div>
+                <!-- Ponemos un botón para crear una tarea -->
+       <div>
+        <form action="{{url_for('/anadir_tarea')}}" method="post">
+            <input type="submit" value="Crear Tarea" />
+        </form>
+        </div>
+        <!-- Ponemos un botón para Ver/ Editar una tarea -->
+        <div>
+            <form action="{{url_for('/editar_tarea')}}" method="post">
+                <input type="submit" value="Ver/Editar Tarea" />
+            </form>
+        </div>
+        <!-- Ponemos un botón para Eliminar una tarea -->
+        <div>
+            <form action="{{url_for('/eliminar_tarea')}}" method="post">
+                <input type="submit" value="Eliminar Tarea" />
+            </form>
+        </div>
+        <!-- Ponemos un botón para listar las tareas -->
+        <div>
+            <form action="{{url_for('/ver_tareas')}}" method="post">
+                <input type="submit" value="Lista de Tareas" />
+            </form>
+        </div>
+        <!-- Ponemos un botón para Visualizar el calendario, este botón estará desabilitado -->
+        <div>
+            <form action="{{url_for('/calendario')}}" method="post">
+                <input type="submit" value="Visualizar Calendario" disabled />
+            </form>
+        </div>
+        <!-- Ponemos un botón para Evaluar un trabajador -->
+        <div>
+            <form action="{{url_for('/evaluar_trabajador')}}" method="post">
+                <input type="submit" value="Evaluar Trabajador" disabled />
+            </form>
+        </div>
+            <!--Ponemos un botón para volver a la ventana anterior-->
+    <div>
+    <form action="{{url_for('/manager_proyectos_tareas')}}" method="post">
+        <input type="submit" value="Cerrar">
+    </form>
+    </div>
+    <!--Ponemos un botón para volver a la ventana anterior-->
+    <div>
+        <form action="{{url_for('/manager')}}" method="post">
+            <input type="submit" value="Cerrar">
+        </form>
+        </div>
+        <!--Ponemos un botón para cerrar la sesión del usuario en cualquier momento-->
+       <div>
+            <form action="{{url_for('/index')}}" method="post">
+                <input type="submit" value="Cerrar Sesión">
+            </form>
+       </div>
+    </body>
+</html>

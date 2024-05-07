@@ -84,21 +84,6 @@ def login():
             flash('Usuario o contraseña inválidos.', 'danger')
     return render_template('index.html', form=form)
 
-"""
-# Ruta para el registro de usuarios
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    db.create_all()
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(username=form.username.data, role=form.role.data)
-        user.set_password(form.password.data) 
-        db.session.add(user)
-        db.session.commit()
-        flash('Te has registrado correctamente.', 'success')
-        return redirect(url_for('index'))
-    return render_template('register.html', form=form)
-"""
 
 @app.route('/cerrar-sesion')
 def logout():

@@ -31,6 +31,18 @@
         <div>
             {{ form.submit() }}
         </div>
+        <div>
+            <p>¿Has olvidado tu usuario o tu contraseña?</p>
+            <p>Introduce tu email y te enviaremos para que puedas recuperar tu cuenta.</p>
+            {{form.email.label}}
+            {{form.email(size=20)}}
+            {% for error in form.email.errors %}
+                <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{form.submit()}}
+        </div>
     </form>
 </body>
 </html>

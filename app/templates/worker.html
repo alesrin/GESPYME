@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html lang="es">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="description" content="GESPYME"/>
+        <title>GESPYME</title>
+    </head>
+    <body>
+       <h1>Menu Worker</h1>
+       <div>
+            <!-- Ponemos un botón para ver los proyectos en los que forma parte el trabajador  -->
+            <form action="{{url_for('/ver_proyectos_worker')}}" method="post">
+                <input type="submit" value="Visualizar Proyectos" />
+            </form>
+       </div>
+       <div>
+        <!-- Ponemos un botón para ver las tareas en los que forma parte el trabajador  -->
+        <form action="{{url_for('/ver_tareas_worker')}}" method="post">
+            <input type="submit" value="Visualizar Tareas" />
+        </form>
+    </div>
+       <div>
+        <!-- Ponemos un botón para ver el calendario, este botón estará desabilitado -->
+        <form action="{{url_for('/ver_calendario')}}" method="post">
+            <input type="submit" value="Visualizar Calendario" disabled />
+        </form>
+        </div>
+       <!--Ponemos un botón para cerrar la sesión del usuario en cualquier momento-->
+       <div>
+            <form action="{{url_for('/index')}}" method="post">
+                <input type="submit" value="Cerrar Sesión">
+            </form>
+       </div>
+    </body>
+</html>
