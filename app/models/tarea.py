@@ -26,7 +26,7 @@ class Tarea:
     def mostrar_informacion_completa_tarea(self):
         print(f"ID : {self.id_tarea}\n Nombre {self.nombre_tarea}\nTiempo estimado en días: {self.tiempo_estimado}\nFecha inicio: {self.fecha_inicio}\nFecha fin: {self.fecha_fin}")
         print(f"Fecha límite {self.fecha_limite}\nCoste: {self.coste_tarea}\nEstado: {self.estado_tarea}\nProyecto: {self.id_proyecto}")
-        print(f"\nManager: {self.manager_tarea}\nTrabajadores: \n{self.trabajadores}")
+        Tarea.mostrar_trabajadores_tarea(self.id_tarea)
         
     
     #definimos un metodo para añadir una tarea a la lista de tareas
@@ -79,7 +79,8 @@ class Tarea:
         if len(cls.lista_tareas) == 0:
             print("No existen tareas todavia")
         else:
-            id_tarea = str("Introduce el id de la tarea a la que se le quiere añadir trabajadores")
+            Tarea.mostrar_tareas()
+            id_tarea = str(input("Introduce el id de la tarea a la que se le quiere añadir trabajadores: "))
             for tarea in cls.lista_tareas:
                 if tarea.id_tarea == id_tarea:
                     if len(Worker_User.lista_workers) == 0:
@@ -87,7 +88,7 @@ class Tarea:
                     else:
                         while True:
                             print("Estos son los trabajadores existentes actualmente")
-                            Worker_User.lista_workers()
+                            Worker_User.mostrar_workers()
                             id_trabajador = str(input("Introduce el id del trabajador que quieres añadir a la tarea: "))
                             for trabajador in Worker_User.lista_workers:
                                 if trabajador.id_worker == id_trabajador:
@@ -95,11 +96,12 @@ class Tarea:
                                     #aumentamos el contador de tareas del trabajador en 1
                                     trabajador.contador_tareas_worker += 1
                                     print("Trabajador añadido correctamente")
-                                    opcion = str("¿Quieres añadir otro trabajador? (S/N): ")
+                                    opcion = str(input("¿Quieres añadir otro trabajador? (S/N): "))
                                     if opcion == "S":
                                         continue
                                     else:
                                         break
+                            break
 
                                     
     #definimos un metodo para eliminar un trabajador ya sea manager o worker de una tarea
@@ -112,32 +114,33 @@ class Tarea:
             id_tarea = str(input("Introduce el id de la tarea de la que quieres eliminar un trabajador: "))
             for tarea in cls.lista_tareas:
                 if tarea.id_tarea == id_tarea:
-                    id_trabajador_a_eliminar = str(input("introduce el id del trabajador que desea eliminar: "))
-                    for trabajador in tarea.trabajadores:
-                        trabajador.id_worker = id_trabajador_a_eliminar
-                        #reducimos el contador de tareas del trabajador en 1
-                        trabajador.contador_tareas_worker -= 1
-                        #eliminamos el trabajador de la lista de trabajadores de la tarea
-                        tarea.trabajadores.remove(trabajador)
-                        print("Trabajador eliminado correctamente")
+                    for worker in tarea.trabajadores:
+                        worker.mostrar_info_reducida_worker()
+                        id_trabajador_a_eliminar = str(input("introduce el id del trabajador que desea eliminar: "))
+                        for trabajador in tarea.trabajadores:
+                            trabajador.id_worker = id_trabajador_a_eliminar
+                            #reducimos el contador de tareas del trabajador en 1
+                            trabajador.contador_tareas_worker -= 1
+                            #eliminamos el trabajador de la lista de trabajadores de la tarea
+                            tarea.trabajadores.remove(trabajador)
+                            print("Trabajador eliminado correctamente")
                         
     #definimos un método para modificar el estado de una tarea
     @classmethod
-    def finalizar_tarea(cls):
+    def finalizar_tarea(cls, id_tarea):
         if len(cls.lista_tareas) == 0:
             print("No existen tareas todavia")
         else:
             cls.mostrar_tareas()
-            id_tarea_seleccionada = str(input("Introduce el ID de la tarea que quiere finalizar su estado: "))
             for tarea in cls.lista_tareas:
-                if tarea.id_tarea == id_tarea_seleccionada:
+                if tarea.id_tarea == id_tarea:
                     opcion = str(input("¿Ha finalizado la tarea? (S/N): "))
                     if opcion.upper() == "S":
                         tarea.estado = True
                         #actualizamos la fecha fin por la de ahora
                         tarea.fecha_fin = dt.now()
                         #al finalizar la tarea calculamos el coste de la tarea
-                        cls.calculo_coste_tarea(id_tarea_seleccionada)
+                        cls.calculo_coste_tarea(id_tarea)
                         print("Tarea finalizada correctamente")
                     else:
                         tarea.estado = False
@@ -172,7 +175,14 @@ class Tarea:
             else:
                 print("No tienes tareas asignadas")
 
-  
+    #definimos un metodo para mostrar los trabajadores de una tarea
+    @classmethod
+    def mostrar_trabajadores_tarea(cls, id_tarea):
+        print("Los trabajadores asignados a la tarea son: ")
+        for tarea in cls.lista_tareas:
+            if tarea.id_tarea == id_tarea:
+                for worker in tarea.trabajadores:
+                    worker.mostrar_info_reducida_worker()
                 
     #definimos un método para modificar los datos de una tarea
     @classmethod
@@ -253,8 +263,11 @@ class Tarea:
                             elif opcion.upper() == "N":
                                 break
                         elif dato_a_modificar == 7:
-                            nuevo_estado_tarea = str(input("Introduce el nuevo estado de la tarea: "))
-                            tarea.estado_tarea = nuevo_estado_tarea
+                            nuevo_estado_tarea = str(input("Se ha finalizado la tarea? (S/N): "))
+                            if nuevo_estado_tarea.upper() == "S":
+                                Tarea.finalizar_tarea(id_a_modificar)
+                            else:
+                                tarea.estado = False
                             print("Estado modificado correctamente")
                             opcion = str(input("Desea modificar algun otro dato? (S/N)"))
                             if opcion.upper() == "S":

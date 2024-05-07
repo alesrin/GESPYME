@@ -27,9 +27,9 @@ class Worker_User:
         print(f"Tareas asignadas: {self.contador_tareas_worker} \nPuesto trabajo:  {self.puesto_trabajo_worker}\nNº Proyectos: {self.contador_proyectos_worker}")
     
     #definimos un metodo para mostrar la informacción de los managers
-    @classmethod
-    def mostrar_info_reducida_worker(cls):
-        print(f"ID: {cls.id_worker} \n{cls.nombre_worker} {cls.apellido_1_worker} {cls.apellido_2_worker}")
+    
+    def mostrar_info_reducida_worker(self):
+        print(f"ID: {self.id_worker} \n{self.nombre_worker} {self.apellido_1_worker} {self.apellido_2_worker}")
     
     #Definimos un metodo para añadir un nuevo manager
     @classmethod
@@ -69,7 +69,7 @@ class Worker_User:
             print("No hay ningun usuario worker registrado")
         else:
             #Creamos un bucle para que el usuario pueda ver todos los trabajadores
-            for worker in Worker_User.lista_workers:
+            for worker in cls.lista_workers:
                 worker.mostrar_info_reducida_worker()
 
     #definimos un metodo para borrar un trabajador de la lista
@@ -96,13 +96,13 @@ class Worker_User:
     @classmethod
     def modificar_usuario_worker(cls):
         #mostramos los managers que existen actualmente
-        if len(Worker_User.lista_workers) == 0:
+        if len(cls.lista_workers) == 0:
             print("No hay ningun usuario worker registrado")
         else:
             Worker_User.mostrar_workers()
             id_a_modificar = str(input("Introduce el id del usuario worker que desea modificar: "))
             #Creamos un bucle para comprobar el id que deseamos modificar
-            for worker in Worker_User.lista_workers:
+            for worker in cls.lista_workers:
                 if worker.id_worker == id_a_modificar.upper():
                     print("Estos son los datos del usuario seleccionado")
                     worker.mostrar_info_ampliada_workers()
