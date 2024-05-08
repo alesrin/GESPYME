@@ -1,48 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Gestión de Recursos Humanos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/index.css">
 </head>
 <body>
-    <h1>Login</h1>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        <div>
-            {{ form.username.label }}
-            {{ form.username(size=20) }}
-            {% for error in form.username.errors %}
-                <span style="color: red;">{{ error }}</span>
-            {% endfor %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Iniciar Sesión</h2>
+                        <form action="/login" method="post" id="loginForm">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Usuario</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg">Iniciar Sesión</button>
+                            </div>
+                        </form>
+                        <div class="text-center mt-3">
+                            <a href="#" id="forgot-link" data-bs-toggle="modal" data-bs-target="#forgotModal">¿Olvidaste tu usuario y/o contraseña?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            {{ form.password.label }}
-            {{ form.password(size=20) }}
-            {% for error in form.password.errors %}
-                <span style="color: red;">{{ error }}</span>
-            {% endfor %}
+    </div>
+
+    <!-- Modal para recuperar contraseña -->
+    <div class="modal fade" id="forgotModal" tabindex="-1" aria-labelledby="forgotModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="forgotModalLabel">Recuperar Usuario/Contraseña</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Introduce tu dirección de correo electrónico para recibir instrucciones:</p>
+                    <input type="email" id="email" class="form-control mb-3" placeholder="Correo Electrónico" required>
+                    <button type="button" class="btn btn-primary" onclick="sendRecoveryEmail()">Enviar Email</button>
+                </div>
+            </div>
         </div>
-        <div>
-            {{ form.submit() }}
-        </div>
-        <div>
-            <p>¿Has olvidado tu usuario o tu contraseña?</p>
-            <p>Introduce tu email y te enviaremos para que puedas recuperar tu cuenta.</p>
-            {{form.email.label}}
-            {{form.email(size=20)}}
-            {% for error in form.email.errors %}
-                <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <div>
-            {{form.submit()}}
-        </div>
-    </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/login.js"></script>
+
+    <script>
+        // Función para manejar el envío del formulario de recuperación de contraseña
+        function sendRecoveryEmail() {
+            // Aquí puedes implementar la lógica para enviar un email de recuperación
+            // Por ahora, simplemente mostramos un mensaje en consola
+            const email = document.getElementById('email').value;
+            console.log(`Enviar email de recuperación a: ${email}`);
+            // Puedes implementar aquí la lógica para enviar un email real (por ejemplo, mediante AJAX)
+            // Una vez implementada la funcionalidad real, puedes cerrar el modal
+            const modal = new bootstrap.Modal(document.getElementById('forgotModal'));
+            modal.hide(); // Cerrar el modal
+        }
+    </script>
 </body>
 </html>

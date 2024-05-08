@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Administrador/Manager - Gestión de Recursos Humanos</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="static/css/edit_admin.css">
+</head>
+<body>
+    <div class="container-fluid vh-85 d-flex justify-content-center align-items-center">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-md-12 text-center">
+                    <h2>Editar Administrador/Manager</h2>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellido1" class="form-label">Primer Apellido</label>
+                        <input type="text" class="form-control" id="apellido1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellido2" class="form-label">Segundo Apellido</label>
+                        <input type="text" class="form-control" id="apellido2" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input type="tel" class="form-control" id="telefono" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="horas-semanales" class="form-label">Horas Semanales</label>
+                        <input type="number" class="form-control" id="horas-semanales" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="coste-hora" class="form-label">Coste por Hora</label>
+                        <input type="number" class="form-control" id="coste-hora" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="puesto-trabajo" class="form-label">Puesto de Trabajo</label>
+                        <input type="text" class="form-control" id="puesto-trabajo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contador-tareas" class="form-label">Contador de Tareas</label>
+                        <input type="number" class="form-control" id="contador-tareas" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contador-proyectos" class="form-label">Contador de Proyectos</label>
+                        <input type="number" class="form-control" id="contador-proyectos" readonly>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label">Usuario</label>
+                        <input type="text" class="form-control" id="usuario" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contrasena" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="contrasena" required>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="mb-3">Clase Usuario</h5>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="clase-usuario" id="admin-radio" value="admin" required>
+                            <label class="form-check-label" for="admin-radio">Administrador</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="clase-usuario" id="manager-radio" value="manager" required>
+                            <label class="form-check-label" for="manager-radio">Manager</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-end">
+                    <button type="button" class="btn btn-success me-3">Guardar</button>
+                    <button type="button" class="btn btn-warning me-3">Salir</button>
+                    <button type="button" class="btn btn-primary">Añadir Otro Trabajador</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enlace a Bootstrap JS (necesario para funcionalidades de Bootstrap) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
