@@ -92,7 +92,7 @@ def logout():
     return redirect(url_for('index'))
 
 @app.route('/worker')
-def administrador():
+def worker():
     if current_user.is_authenticated and current_user.role == 'worker':
         return 'Página de inicio para usuarios worker'
     else:
@@ -100,11 +100,11 @@ def administrador():
         return redirect(url_for('index'))
 
 @app.route('/manager')
-def administrador():
-    if current_user.is_authenticated and current_user.role == 'administrador':
+def manager():
+    if current_user.is_authenticated and current_user.role == 'manager':
         return 'Página de inicio para usuarios manager'
     else:
-        flash('Debe iniciar sesión como usuario administrador para acceder a esta página.', 'warning')
+        flash('Debe iniciar sesión como usuario manger para acceder a esta página.', 'warning')
         return redirect(url_for('index'))
 
 @app.route('/administrador')
