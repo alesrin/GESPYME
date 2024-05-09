@@ -1,0 +1,3 @@
+[{"id_administrador": "UA1", "nombre_administrador": "Daniel", "apellido_1_administrador": "Garcia", "apellido_2_administrador": "Muñoz",
+"telefono_administrador": 123456789, "email_administrador": "daniel@gmail.com", "horas_semanales_administrador": 40, "coste_hora_administrador": 10.50,
+"puesto_trabajo_administrador": "Gerente de sección", "contador_tareas_administrador": 0, "contador_proyectos_administrador": 0}]

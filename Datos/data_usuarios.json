@@ -1,0 +1,4 @@
+[{"id_usuario": "U1", "nombre_usuario": "daniel", "contrasena_usuario": "daniel", "tipo_usuario": "administrador", "id_empleado": "UA1"},
+ {"id_usuario": "U2", "nombre_usuario": "raquel", "contrasena_usuario": "raquel", "tipo_usuario": "manager", "id_empleado": "UM1"},
+ {"id_usuario": "U3", "nombre_usuario": "adrian", "contrasena_usuario": "adrian", "tipo_usuario": "worker", "id_empleado": "UW1"}]
+
