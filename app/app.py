@@ -101,7 +101,7 @@ def logout():
     return redirect(url_for('index'))
 
 @app.route('/menu_worker')
-def worker():
+def menu_worker():
     if current_user.is_authenticated and current_user.role == 'worker':
         return 'Página de inicio para usuarios worker'
     else:
@@ -109,25 +109,25 @@ def worker():
         return redirect(url_for('index'))
 
 @app.route('/menu_manager')
-def manager():
+def menu_manager():
     if current_user.is_authenticated and current_user.role == 'manager':
         return 'Página de inicio para usuarios manager'
     else:
         flash('Debe iniciar sesión como usuario manger para acceder a esta página.', 'warning')
         return redirect(url_for('index'))
 
-@app.route('/menu_administrador')
-def administrador():
+@app.route('/menu_admin')
+def menu_administrador():
     if current_user.is_authenticated and current_user.role == 'administrador':
         return 'Página de inicio para usuarios administrador'
     else:
         flash('Debe iniciar sesión como usuario administrador para acceder a esta página.', 'warning')
         return redirect(url_for('index'))
 
-@app.route('/create_admin' methods= ['GET', 'POST'])
-def create_admin():
+@app.route('/create_admin_manager', methods= ['GET', 'POST'])
+def create_admin_manager():
     if request.method == 'GET':
-        return render_template('create_admin.html', administrador={})
+        return render_template('create_admin_manager.html', administrador={})
     elif request.method == 'POST':
         if len(administrador) == 0:
             numero_admin = 1
@@ -147,7 +147,16 @@ def create_admin():
             administrador = json.load(ua)
         administrador.append({"id_administrador": id_administrador, "nombre_administrador": nombre_administrador, "apellido_1_administrador": apellido_1_administrador,
                               "apellido_2_administrador": apellido_2_administrador, "telefono_administrador": telefono_administrador, "email_administrador": email_administrador,
-                              "horas_semanales_administrador": horas_semanales_administrador, "coste_hora_administrador": coste_hora_administrador, "puesto_trabajo_administrador"})
+                              "horas_semanales_administrador": horas_semanales_administrador, "coste_hora_administrador": coste_hora_administrador,
+                              "puesto_trabajo_administrador": puesto_trabajo_administrador, "contador_tareas_administrador": 0, "contador_proyectos_administrador": 0})
+        with open(data_usuarios_administrador,"w") as ua
+            json.dump(administrador,ua)
+        return redirect(url_for('index'))
+        nombre_usuario = request.form["nombre_usuario"]
+        contrasena_usuario = request.form["contrasena"]
+        tipo_usuario = ""
+        
+        
 
 
 
