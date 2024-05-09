@@ -5,12 +5,21 @@ from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
+import json
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '90bc04947dce3a57edbd90fefbc1c3d0211739937a6fc5ed'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 db = SQLAlchemy(app)
+
+#Cargamos los archivos json
+data_usuarios = '/Datos/data_usuarios.json'
+data_usuarios_administrador = '/Datos/data_usuarios_administrador.json'
+data_usuarios_manager = '/Datos/data_usuarios_manager.json'
+data_usuarios_worker = '/Datos/data_usuarios_worker.json'
+data_proyecto = '/Datos/data_proyecto.json'
+data_tarea = '/Datos/data_tarea.json'
 
 
 # Configuraciones para desactivar la caché en desarrollo
@@ -114,6 +123,34 @@ def administrador():
     else:
         flash('Debe iniciar sesión como usuario administrador para acceder a esta página.', 'warning')
         return redirect(url_for('index'))
+
+@app.route('/create_admin' methods= ['GET', 'POST'])
+def create_admin():
+    if request.method == 'GET':
+        return render_template('create_admin.html', administrador={})
+    elif request.method == 'POST':
+        if len(administrador) == 0:
+            numero_admin = 1
+            id_administrador = "UA" + str(numero_admin)
+        else:
+            numero_admin = len(administrador) +1
+            id_administrador = "UA" + str(numero_admin)
+        nombre_administrador = request.form["nombre"]
+        apellido_1_administrador = request.form["apellido_1"]
+        apellido_2_administrador = request.form["apellido_2"]
+        telefono_administrador = request.form["telefono"]
+        email_administrador = request.form["email"]
+        horas_semanales_administrador = request.form["horas_semanales"]
+        coste_hora_administrador = request.form["coste_hora"]
+        puesto_trabajo_administrador = request.form["puesto_trabajo"]
+        with open(data_usuarios_administrador, 'r+') as ua:
+            administrador = json.load(ua)
+        administrador.append({"id_administrador": id_administrador, "nombre_administrador": nombre_administrador, "apellido_1_administrador": apellido_1_administrador,
+                              "apellido_2_administrador": apellido_2_administrador, "telefono_administrador": telefono_administrador, "email_administrador": email_administrador,
+                              "horas_semanales_administrador": horas_semanales_administrador, "coste_hora_administrador": coste_hora_administrador, "puesto_trabajo_administrador"})
+
+
+
 
 
 
