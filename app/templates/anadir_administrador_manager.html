@@ -1,79 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Añadir administrador manager</title>
+    <title>Añadir usuario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Crear administrador / manager</h1>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-            {% endfor %}
+    <header>
+    <nav>
+        <ul>
+        <li><a href="{{ url_for('index') }}">Inicio</a></li>
+        <li><a href="#0">Proyectos</a>
+        </li>
+        {% if current_user.is_authenticated %}
+            {% if current_user.role == 'manager' %}
+            <li>
+                <a href="#">Consola</a>
+                <ul>
+                <li><a href="{{ url_for('cerrar_sesion') }}">Cerrar sesión</a></li>
+
+                <li><a href="{{ url_for('registro') }}">Registrar usuarios</a></li>
+                </ul>
+            </li>
+            <li><a href="#0">Usuarios</a>
+                <ul>
+                <li><a href="{{ url_for('usuarios', role='manager') }}">Manager</a></li>
+                <li><a href="{{ url_for('usuarios', role='administrador') }}">Administrador</a></li>
+                <li><a href="{{ url_for('usuarios', role='worker') }}">Trabajador</a></li>
+                </ul>
+            </li>
+            {% endif %}
+        
+            <li>
+                <a href="#">Usuario</a>
+                <ul>
+                
+                    <li><a href="{{ url_for('cerrar_sesion') }}">Cerrar sesión</a></li>
+                </ul>
+            </li>
+            
+        {% else %}
+        <li>
+            <a href="#">Usuario</a>
+            <ul>
+                <li><a href="{{ url_for('inicio_sesion') }}">Inicio sesión</a></li>
+            </ul>
+        </li>
         {% endif %}
-    {% endwith %}
+        </ul>
+    </nav>
+    
+    </header>
+    <h1>Crear Usuario</h1>
     <form method="POST">
         {{ form.hidden_tag() }}
         <div>
-            {{ form.nombre.label }}
-            {{ form.nombre(size=20) }}
-            {% for error in form.nombre.errors %}
-                <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <div>
-            {{ form.apellido_1.label }}
-            {{ form.apellido_1(size=20) }}
-            {% for error in form.apellido_1.errors %}
-                <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <div>
-            {{ form.apellido_2.label }}
-            {{ form.apellido_2(size=20) }}
-            {% for error in form.apellido_2.errors %}
-                <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <div>
-            {{ form.telefono.label }}
-            {{ form.telefono(size=20) }}
-            {% for error in form.telefono.errors %}
-                <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <div>
-            {{ form.email.label }}
-            {{ form.email(size=40) }}
-            {% for error in form.email.errors %}
-                <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <div>
-            {{ form.horas_semanales.label }}
-            {{ form.horas_semanales(size=2) }}
-            {% for error in form.horas_semanales.errors %}
-                <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <div>
-            {{ form.coste_hora.label }}
-            {{ form.coste_hora(size=4) }}
-            {% for error in form.coste_hora.errors %}
-                <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <div>
-            {{ form.puesto_trabajo.label }}
-            {{ form.puesto_trabajo(size=20) }}
-            {% for error in form.puesto_trabajo.errors %}
-                <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <div>
-            {{ form.usuario.label }}
-            {{ form.usuario(size=20) }}
-            {% for error in form.usuario.errors %}
+            {{ form.username.label }}
+            {{ form.username(size=20) }}
+            {% for error in form.username.errors %}
                 <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </div>
@@ -85,29 +68,21 @@
             {% endfor %}
         </div>
         <div>
-            {{ form.tipo_usuario.radio_button }}
-            {% for error in form.tipo_usuario.errors %}
+            {{ form.role.label }}
+            {% for subfield in form.role %}
+                {{ subfield() }}
+                {{ subfield.label }}
+            {% endfor %}
+            {% for error in form.role.errors %}
                 <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </div>
         <div>
             {{ form.submit() }}
         </div>
-        <div>
-            {{ form.reset() }}
-        </div>
     </form>
-    <!--Ponemos un botón para volver a la ventana anterior-->
-    <div>
-        <form action="{{url_for('/administrador')}}" method="post">
-            <input type="submit" value="Cerrar">
-        </form>
-    </div>
-    <!--Ponemos un botón para cerrar la sesión del usuario en cualquier momento-->
-    <div>
-        <form action="{{url_for('/index')}}" method="post">
-            <input type="submit" value="Cerrar Sesión">
-        </form>
-    </div>
+    <form action="{{url_for('mostrar_usuarios')}}" method="post">
+        <input type="submit" value="Mostrar Usuarios" />
+    </form>
 </body>
 </html>

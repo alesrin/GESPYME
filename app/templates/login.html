@@ -2,10 +2,57 @@
 <html>
 <head>
     <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <header>
+        <nav>
+            <ul>
+            <li><a href="{{ url_for('index') }}">Inicio</a></li>
+            <li><a href="#0">Proyectos</a>
+            </li>
+            {% if current_user.is_authenticated %}
+                {% if current_user.role == 'manager' %}
+                <li>
+                    <a href="#">Consola</a>
+                    <ul>
+                    <li><a href="{{ url_for('cerrar_sesion') }}">Cerrar sesión</a></li>
+    
+                    <li><a href="{{ url_for('registro') }}">Registrar usuarios</a></li>
+                    </ul>
+                </li>
+                <li><a href="#0">Usuarios</a>
+                    <ul>
+                    <li><a href="{{ url_for('usuarios', role='manager') }}">Manager</a></li>
+                    <li><a href="{{ url_for('usuarios', role='administrador') }}">Administrador</a></li>
+                    <li><a href="{{ url_for('usuarios', role='worker') }}">Trabajador</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            
+                <li>
+                    <a href="#">Usuario</a>
+                    <ul>
+                    
+                        <li><a href="{{ url_for('cerrar_sesion') }}">Cerrar sesión</a></li>
+                    </ul>
+                </li>
+                
+            {% else %}
+            <li>
+                <a href="#">Usuario</a>
+                <ul>
+                    <li><a href="{{ url_for('inicio_sesion') }}">Inicio sesión</a></li>
+                </ul>
+            </li>
+            {% endif %}
+            </ul>
+        </nav>
+        
+        </header>
     <h1>Login</h1>
-    <form action="/" method="POST">
+
+    <form  method="POST">
         <div>
             {{ form.username.label }}
             {{ form.username(size=20) }}
@@ -22,18 +69,6 @@
         </div>
         <div>
             {{ form.submit() }}
-        </div>
-        <div>
-            <p>¿Has olvidado tu usuario o tu contraseña?</p>
-            <p>Introduce tu email y te enviaremos para que puedas recuperar tu cuenta.</p>
-            {{form.email.label}}
-            {{form.email(size=20)}}
-            {% for error in form.email.errors %}
-                <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <div>
-            {{form.submit()}}
         </div>
     </form>
 </body>

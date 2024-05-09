@@ -4,86 +4,61 @@
         <meta charset="utf-8"/>
         <meta name="description" content="GESPYME"/>
         <title>GESPYME</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
     <body>
-       <h1>Menu Manager Proyectos y Tareas</h1>
-        <!-- Ponemos un botón para crear un proyecto -->
-       <div>
-            <form action="{{url_for('/anadir_proyecto')}}" method="post">
-                <input type="submit" value="Crear Proyecto" />
-            </form>
-       </div>
-        <!-- Ponemos un botón para Ver/ Editar un proyecto -->
-       <div>
-            <form action="{{url_for('/editar_proyecto')}}" method="post">
-                <input type="submit" value="Ver/Editar Proyecto" />
-            </form>
-       </div>
-        <!-- Ponemos un botón para Eliminar un proyecto -->
-        <div>
-            <form action="{{url_for('/eliminar_proyecto')}}" method="post">
-                <input type="submit" value="Eliminar Proyecto" />
-            </form>
-        </div>
-        <!-- Ponemos un botón para listar los proyectos -->
-        <div>
-            <form action="{{url_for('/ver_proyecto')}}" method="post">
-                <input type="submit" value="Lista de Proyectos" />
-            </form>
-        </div>
-                <!-- Ponemos un botón para crear una tarea -->
-       <div>
-        <form action="{{url_for('/anadir_tarea')}}" method="post">
-            <input type="submit" value="Crear Tarea" />
-        </form>
-        </div>
-        <!-- Ponemos un botón para Ver/ Editar una tarea -->
-        <div>
-            <form action="{{url_for('/editar_tarea')}}" method="post">
-                <input type="submit" value="Ver/Editar Tarea" />
+        <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="{{ url_for('index') }}">Inicio</a>
+                </li>
+                <li>
+                    <a href="#0">Proyectos</a>
+                </li>
+                <li>
+                    <a href="#">Consola</a>
+                    <ul>
+                        <li>
+                            <a href="{{ url_for('inicio_sesion') }}">Inicio sesión</a>
+                        </li>
+                        <li><a href="{{ url_for('logout') }}">Cerrar sesión</a></li>
+    
+                        <li><a href="{{ url_for('crear_admin') }}">Registrar usuarios</a></li>
+                    </ul>
+                </li>
+                <li><a href="#0">Usuarios</a>
+                    <ul>
+                    <li><a href="#">Manager</a></li>
+                    <li><a href="#">Administrador</a></li>
+                    <li><a href="#">Trabajador</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        </header>
+        <div class="button">
+            <form action="{{url_for('crear_admin')}}" method="post">
+                <input type="submit" value="Crear Administrador o Manager" />
             </form>
         </div>
-        <!-- Ponemos un botón para Eliminar una tarea -->
-        <div>
-            <form action="{{url_for('/eliminar_tarea')}}" method="post">
-                <input type="submit" value="Eliminar Tarea" />
-            </form>
-        </div>
-        <!-- Ponemos un botón para listar las tareas -->
-        <div>
-            <form action="{{url_for('/ver_tareas')}}" method="post">
-                <input type="submit" value="Lista de Tareas" />
-            </form>
-        </div>
-        <!-- Ponemos un botón para Visualizar el calendario, este botón estará desabilitado -->
-        <div>
-            <form action="{{url_for('/calendario')}}" method="post">
-                <input type="submit" value="Visualizar Calendario" disabled />
-            </form>
-        </div>
-        <!-- Ponemos un botón para Evaluar un trabajador -->
-        <div>
-            <form action="{{url_for('/evaluar_trabajador')}}" method="post">
-                <input type="submit" value="Evaluar Trabajador" disabled />
-            </form>
-        </div>
-            <!--Ponemos un botón para volver a la ventana anterior-->
+            <div>
+                <form action="{{url_for('mostrar_usuarios')}}" method="post">
+                    <input type="submit" value="Mostrar Usuarios" />
+                </form>
+            </div>
     <div>
-    <form action="{{url_for('/manager_proyectos_tareas')}}" method="post">
-        <input type="submit" value="Cerrar">
-    </form>
+        {% if current_user.is_authenticated %}
+        <h1>¡Hola {{ current_user.username.title() }}!</h1>
+      {% endif %}
+        <h2>Proyectos</h2>
+        <ul>
+            {% for proyecto in proyectos %}
+                <li>{{ proyecto.nombre_proyecto }}</li>
+                <li>{{ proyecto.empleados }}</li>
+                <li>{{ proyecto.tareas }}</li>
+            {% endfor %}
+        </ul>
     </div>
-    <!--Ponemos un botón para volver a la ventana anterior-->
-    <div>
-        <form action="{{url_for('/manager')}}" method="post">
-            <input type="submit" value="Cerrar">
-        </form>
-        </div>
-        <!--Ponemos un botón para cerrar la sesión del usuario en cualquier momento-->
-       <div>
-            <form action="{{url_for('/index')}}" method="post">
-                <input type="submit" value="Cerrar Sesión">
-            </form>
-       </div>
     </body>
 </html>
