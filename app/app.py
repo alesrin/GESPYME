@@ -91,7 +91,7 @@ def logout():
     flash('Has cerrado sesión correctamente.', 'info')
     return redirect(url_for('index'))
 
-@app.route('/worker')
+@app.route('/menu_worker')
 def worker():
     if current_user.is_authenticated and current_user.role == 'worker':
         return 'Página de inicio para usuarios worker'
@@ -99,7 +99,7 @@ def worker():
         flash('Debe iniciar sesión como usuario worker para acceder a esta página.', 'warning')
         return redirect(url_for('index'))
 
-@app.route('/manager')
+@app.route('/menu_manager')
 def manager():
     if current_user.is_authenticated and current_user.role == 'manager':
         return 'Página de inicio para usuarios manager'
@@ -107,13 +107,15 @@ def manager():
         flash('Debe iniciar sesión como usuario manger para acceder a esta página.', 'warning')
         return redirect(url_for('index'))
 
-@app.route('/administrador')
+@app.route('/menu_administrador')
 def administrador():
     if current_user.is_authenticated and current_user.role == 'administrador':
         return 'Página de inicio para usuarios administrador'
     else:
         flash('Debe iniciar sesión como usuario administrador para acceder a esta página.', 'warning')
         return redirect(url_for('index'))
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
