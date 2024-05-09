@@ -492,5 +492,5 @@ class Menu:
         os.system('cls' if os.name=='nt' else 'clear')
         
     #definimos un objeto de tipo usuario y lo añadimos a la lista
-    usuario1 = Usuario("U1", "daniel", "daniel", "administrador","U1")
+    usuario1 = Usuario("U1", "daniel", "daniel", "administrador","UA1")
     Usuario.lista_usuarios.append(usuario1)  
