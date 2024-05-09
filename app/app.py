@@ -1,11 +1,15 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
-from flask_login import LoginManager, login_user, current_user, logout_user, UserMixin
+from flask_login import LoginManager, login_user, logout_user, UserMixin
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField
-from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, RadioField
+from wtforms.validators import DataRequired, Length, ValidationError
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 import json
+from models.proyecto import Proyecto
+
+
+
 
 
 app = Flask(__name__)
@@ -14,17 +18,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 db = SQLAlchemy(app)
 
 #Cargamos los archivos json
+data_proyecto = '/Datos/data_proyecto.json'
 data_usuarios = '/Datos/data_usuarios.json'
 data_usuarios_administrador = '/Datos/data_usuarios_administrador.json'
 data_usuarios_manager = '/Datos/data_usuarios_manager.json'
 data_usuarios_worker = '/Datos/data_usuarios_worker.json'
-data_proyecto = '/Datos/data_proyecto.json'
-data_tarea = '/Datos/data_tarea.json'
 
-
-# Configuraciones para desactivar la caché en desarrollo
-app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=4, max=20)])
@@ -35,9 +34,14 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=4, max=20)])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    role = SelectField('Role', choices=[('administrador', 'Administrador'), ('manager', 'Manager'), ('worker', 'Worker')], validators=[DataRequired()])
-    submit = SubmitField('Register')
+    nombre = StringField('Nombre', validators=[DataRequired()])
+    role = RadioField('Role', choices=[('administrador', 'Administrador'), ('manager', 'Manager')], validators=[DataRequired()])
+    telefono = StringField('Teléfono', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    horas_semanales = StringField('Horas Semanales', validators=[DataRequired()])
+    coste_hora = StringField('Coste por Hora', validators=[DataRequired()])
+    puesto_trabajo = StringField('Puesto de Trabajo', validators=[DataRequired()])
+    submit = SubmitField('Guardar')
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
@@ -50,13 +54,12 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
-    role = db.Column(db.String(20), nullable=False)# 'manager' or 'worker' or 'administrador'
-    
+    role = db.Column(db.String(20), nullable=False)  # 'manager' or 'worker' or 'administrador'
+
     def __init__(self, username, role):
         self.username = username
         self.role = role
-        
-    
+
     def __repr__(self) -> str:
         return f"<User {self.username}>"
 
@@ -65,20 +68,45 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+class Trabajador(db.Model):
+    __tablename__ = 'workers'
+
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(50), nullable=False)
+    usuario_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    telefono = db.Column(db.String(20), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    horas_semanales = db.Column(db.Integer, nullable=False)
+    coste_hora = db.Column(db.Float, nullable=False)
+    puesto_trabajo = db.Column(db.String(100), nullable=False)
+
+    def __init__(self, nombre, usuario_id, telefono, email, horas_semanales, coste_hora, puesto_trabajo):
+        self.nombre = nombre
+        self.usuario_id = usuario_id
+        self.telefono = telefono
+        self.email = email
+        self.horas_semanales = horas_semanales
+        self.coste_hora = coste_hora
+        self.puesto_trabajo = puesto_trabajo
+
 
 login_manager = LoginManager(app)
-login_manager.login_view = 'inicio'
+login_manager.login_view = 'login'
 
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    return render_template("index.html")
 
-@app.route('/index', methods=['GET', 'POST'])
+
+@app.route('/inicio', methods=['GET', 'POST'])
+def index():
+    form = LoginForm()
+    return render_template("index.html", form=form)
+
+@app.route('/', methods=['GET', 'POST'])
 def login():
     db.create_all()
     form = LoginForm()
@@ -91,16 +119,43 @@ def login():
             return redirect(next_page or url_for('index'))
         else:
             flash('Usuario o contraseña inválidos.', 'danger')
-    return render_template('index.html', form=form)
+    return render_template('login.html', form=form)
 
+# Ruta para el formulario de creación de administrador/manager
+@app.route('/crear_admin', methods=['GET', 'POST'])
+def crear_admin():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        # Crear usuario
+        hashed_password = generate_password_hash(form.password.data)
+        user = User(username=form.username.data, password=hashed_password, role=form.role.data)
+        db.session.add(user)
+        db.session.commit()
+
+        # Crear trabajador asociado
+        trabajador = Trabajador(
+            nombre=form.nombre.data,
+            usuario_id=user.id,
+            telefono=form.telefono.data,
+            email=form.email.data,
+            horas_semanales=form.horas_semanales.data,
+            coste_hora=float(form.coste_hora.data),
+            puesto_trabajo=form.puesto_trabajo.data
+        )
+        db.session.add(trabajador)
+        db.session.commit()
+
+        flash('Usuario y trabajador creados correctamente.', 'success')
+        return redirect(url_for('index'))  # Redireccionar a la misma página después de registrar
+
+    return render_template('crear_administrador.html', form=form)
 
 @app.route('/cerrar-sesion')
 def logout():
     logout_user()
-    flash('Has cerrado sesión correctamente.', 'info')
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
-@app.route('/menu_worker')
+""" @app.route('/menu_worker')
 def menu_worker():
     if current_user.is_authenticated and current_user.role == 'worker':
         return 'Página de inicio para usuarios worker'
@@ -122,42 +177,7 @@ def menu_administrador():
         return 'Página de inicio para usuarios administrador'
     else:
         flash('Debe iniciar sesión como usuario administrador para acceder a esta página.', 'warning')
-        return redirect(url_for('index'))
-
-@app.route('/create_admin_manager', methods= ['GET', 'POST'])
-def create_admin_manager():
-    if request.method == 'GET':
-        return render_template('create_admin_manager.html', administrador={})
-    elif request.method == 'POST':
-        if len(administrador) == 0:
-            numero_admin = 1
-            id_administrador = "UA" + str(numero_admin)
-        else:
-            numero_admin = len(administrador) +1
-            id_administrador = "UA" + str(numero_admin)
-        nombre_administrador = request.form["nombre"]
-        apellido_1_administrador = request.form["apellido_1"]
-        apellido_2_administrador = request.form["apellido_2"]
-        telefono_administrador = request.form["telefono"]
-        email_administrador = request.form["email"]
-        horas_semanales_administrador = request.form["horas_semanales"]
-        coste_hora_administrador = request.form["coste_hora"]
-        puesto_trabajo_administrador = request.form["puesto_trabajo"]
-        with open(data_usuarios_administrador, 'r+') as ua:
-            administrador = json.load(ua)
-        administrador.append({"id_administrador": id_administrador, "nombre_administrador": nombre_administrador, "apellido_1_administrador": apellido_1_administrador,
-                              "apellido_2_administrador": apellido_2_administrador, "telefono_administrador": telefono_administrador, "email_administrador": email_administrador,
-                              "horas_semanales_administrador": horas_semanales_administrador, "coste_hora_administrador": coste_hora_administrador,
-                              "puesto_trabajo_administrador": puesto_trabajo_administrador, "contador_tareas_administrador": 0, "contador_proyectos_administrador": 0})
-        with open(data_usuarios_administrador,"w") as ua
-            json.dump(administrador,ua)
-        return redirect(url_for('index'))
-        nombre_usuario = request.form["nombre_usuario"]
-        contrasena_usuario = request.form["contrasena"]
-        tipo_usuario = ""
-        
-        
-
+        return redirect(url_for('index')) """
 
 
 

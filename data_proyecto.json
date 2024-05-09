@@ -1,0 +1,12 @@
+[
+    {
+        "id_proyecto": "P1",
+        "manager_proyecto": "UM1",
+        "nombre_proyecto": "Proyecto 1",
+        "tareas": [
+            "T1",
+            "T2"
+        ],
+        "workers": []
+    }
+]
